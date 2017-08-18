@@ -1,0 +1,85 @@
+{
+    "title": "测试模块",
+    "forms": [
+        {
+            "title": "form check",
+            "description": "try to check your input value",
+            "url": "/valid/test",
+            "method": "post",
+            "inputs": [
+                {
+                    "type": "text",
+                    "name": "email",
+                    "description": ""
+                },
+                {
+                    "type": "text",
+                    "name": "password",
+                    "description": ""
+                }
+            ]
+        },
+        {
+            "title": "upload file",
+            "description": "try to upload a file,and get the url",
+            "url": "/upload/file",
+            "method": "post",
+            "inputs": [
+                {
+                    "type": "file",
+                    "name": "file",
+                    "description": "file"
+                }
+            ]
+        },
+        {
+            "title": "upload image",
+            "description": "try to upload a image,and get the url",
+            "url": "/upload/image",
+            "method": "post",
+            "inputs": [
+                {
+                    "type": "file",
+                    "name": "image",
+                    "description": "image"
+                }
+            ]
+        },
+        {
+            "title": "user login",
+            "description": "a example for login",
+            "url": "/login",
+            "method": "post",
+            "inputs": [
+                {
+                    "name": "email",
+                    "description": "user email"
+                },
+                {
+                    "name": "password",
+                    "description": "user password"
+                }
+            ]
+        },
+        {
+            "title": "sign up",
+            "description": "a example for sign up",
+            "url": "/signup",
+            "method": "post",
+            "inputs": [
+                {
+                    "name": "email",
+                    "description": "user email"
+                },
+                {
+                    "name": "name",
+                    "description": "user name"
+                },
+                {
+                    "name": "password",
+                    "description": "user password"
+                }
+            ]
+        }
+    ]
+}

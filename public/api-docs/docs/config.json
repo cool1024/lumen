@@ -1,0 +1,10 @@
+{
+    "server": "",
+    "title": "API-DOCS",
+    "headers": [
+        "ng-params-one", "ng-params-two"
+    ],
+    "docs": [
+        "example.json"
+    ]
+}
