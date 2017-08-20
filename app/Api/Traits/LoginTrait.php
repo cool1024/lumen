@@ -10,6 +10,7 @@
 namespace App\Api\Traits;
 
 use App\Api\Models\Login;
+use App\Api\Models\User;
 use App\Api\Traits\SecretTrait;
 
 trait LoginTrait
@@ -22,17 +23,17 @@ trait LoginTrait
     {
         $token=$this->getOneToken();
         $res=Login::updateOrCreate(['uid'=>$uid,'device'=>$token_name], ['token'=>$token]);
-        return $res?$token:'update token error';
+        return $res?['secret_id'=>$this->encodeSecretId($uid),'token'=>$token]:'update token error';
     }
 
-    private function _getUidByToken($secret_id, $token, $token_name = 'default')
+    private function _checkToken($secret_id, $token){
+        dd($this->decodeSecretId($secret_id));
+        $uid=Login::where('uid',$this->decodeSecretId($secret_id))->value('uid');
+        return empty($uid)?[]:User::find($uid);
+    }
+
+    private function _cleanToken($secret_id, $token_name = 'default')
     {
-        return Login::where(['id'=>$this->getLoginId($secret_id),'token'=>$token,'device'=>$token_name])->value('uid');
+        return Login::where(['uid'=>$this->decodeSecretId($secret_id),'device'=>$token_name])->delete();
     }
-
-    private function _cleanToken($uid, $token_name = 'default')
-    {
-        return Login::where(['uid'=>$this->getLoginId($secret_id),'device'=>$token_name])->delete();
-    }
-
 }

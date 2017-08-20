@@ -21,20 +21,16 @@ trait TokenTrait
     private function _updateToken($uid)
     {
         $token=$this->getOneToken();
-        $res=User::where(['id'=>$uid])->update(['remember_token'=>$token]);//  User::updateOrCreate(['id'=>$uid], ['remember_token'=>$token]);
-        return $res?$token:'update token error';
+        $res=User::where(['id'=>$uid])->update(['remember_token'=>$token]);
+        return $res?['secret_id'=>$this->encodeSecretId($uid),'remember_token'=>$token]:'update token error';
     }
 
-    private function _getUidByToken($secret_id, $token)
-    {
-        return User::where(['id'=>$this->getLoginId($secret_id),'remember_token'=>$token])
-                    ->whereNotNull('remember_token')
-                    ->value('id');
+    private function _checkToken($secret_id, $token){
+        return User::where(['id'=>$this->decodeSecretId($secret_id),'remember_token'=>$token])->first();
     }
 
     private function _cleanToken($uid)
     {
         return User::where(['id'=>$this->getLoginId($secret_id)])->update(['remember_token'=>null]);
     }
-
 }

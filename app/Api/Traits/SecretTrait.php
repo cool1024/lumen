@@ -17,13 +17,16 @@ trait SecretTrait
         return md5(uniqid());
     }
 
-    private function secretLoginId($login_id)
+    private function encodeSecretId($login_id)
     {
         return base64_encode($login_id);
     }
 
-    private function getLoginId($secret)
+    private function decodeSecretId($secret)
     {
-        return json_decode($secret);
+        $id=base64_decode($secret);
+        $id=1;
+        dd(is_int($id));
+        return is_int($id)?$id:0;
     }
 }

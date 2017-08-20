@@ -80,6 +80,22 @@
                     "description": "user password"
                 }
             ]
+        },
+        {
+            "title": "check token",
+            "description": "a example for token check",
+            "url": "/check",
+            "method": "post",
+            "inputs": [
+                {
+                    "name": "secret",
+                    "description": "client secret"
+                },
+                {
+                    "name": "token",
+                    "description": "client token"
+                }
+            ]
         }
     ]
 }
