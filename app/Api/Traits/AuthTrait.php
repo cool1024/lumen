@@ -4,7 +4,7 @@
  * file:    AuthTrait.php
  * author:  xiaojian
  * date:    2017-08-01
- * exp:     some useful function for api request
+ * exp:     some useful function for auth
  */
 
 namespace App\Api\Traits;

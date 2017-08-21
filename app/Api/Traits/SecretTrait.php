@@ -4,7 +4,7 @@
  * file:    SecretTrait.php
  * author:  xiaojian
  * date:    2017-08-01
- * exp:     some useful function for user token
+ * exp:     some useful function for secret
  */
 
 namespace App\Api\Traits;
