@@ -84,6 +84,8 @@ $app->singleton(
 $app->register(App\Api\Providers\FileServiceProvider::class);
 $app->register(App\Api\Providers\ApiServiceProvider::class);
 $app->register(App\Api\Providers\AuthServiceProvider::class);
+$app->register(App\Sdk\SdkServiceProvider::class);
+
 
 
 /*

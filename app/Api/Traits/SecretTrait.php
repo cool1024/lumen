@@ -14,16 +14,17 @@ trait SecretTrait
 
     private function getOneToken()
     {
-        return md5(uniqid());
+        return sha1(uniqid(true,true));
     }
 
-    private function secretLoginId($login_id)
+    private function encodeSecretId($login_id)
     {
         return base64_encode($login_id);
     }
 
-    private function getLoginId($secret)
+    private function decodeSecretId($secret)
     {
-        return json_decode($secret);
+        $id = base64_decode($secret);
+        return (bool)preg_match('/^[1-9]d*$/', $id) ? $id : 0;
     }
 }

@@ -19,9 +19,7 @@ class AuthMiddleware {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if ($request->input('age') < 200) {
-			return redirect('home');
-		}
+		//$request->header('ng-paras')
 
 		return $next($request);
 	}

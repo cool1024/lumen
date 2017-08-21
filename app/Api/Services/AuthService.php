@@ -4,13 +4,13 @@ namespace App\Api\Services;
 
 use App\Api\Contracts\AuthContract;
 use App\Api\Traits\AuthTrait;
-//use App\Api\Traits\LoginTrait;
+use App\Api\Traits\LoginTrait;
 use App\Api\Traits\TokenTrait;
 
 
 class AuthService implements AuthContract
 {
-    use AuthTrait,TokenTrait;
+    use AuthTrait,LoginTrait;//TokenTrait;
 
     private $isLogin;
 
@@ -67,5 +67,10 @@ class AuthService implements AuthContract
         } elseif ($this->token_save_table=='LOGINS_TABLE') {
             $this->_cleanToken($this->user->id, $token_name);
         }
+    }
+
+    public function check($secret_id,$token){
+        $this->user=$this->_checkToken($secret_id,$token);
+        return !empty($this->user);
     }
 }

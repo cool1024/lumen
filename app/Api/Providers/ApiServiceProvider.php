@@ -3,7 +3,6 @@
 namespace App\Api\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Api\Services\FileService;
 
 class ApiServiceProvider extends ServiceProvider
 {

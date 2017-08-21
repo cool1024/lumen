@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api\Providers;
+namespace App\Sdk;
 
 use Illuminate\Support\ServiceProvider;
 
-class AuthServiceProvider extends ServiceProvider
+class SdkServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -13,7 +13,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Api\Contracts\AuthContract', 'App\Api\Services\AuthService');
+        $this->app->bind('App\Sdk\SdkContract', 'App\Sdk\SdkService');
     }
-
 }

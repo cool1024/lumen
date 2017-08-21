@@ -1,13 +1,11 @@
 {
     "title": "测试模块",
-    "forms": [
-        {
+    "forms": [{
             "title": "form check",
             "description": "try to check your input value",
             "url": "/valid/test",
             "method": "post",
-            "inputs": [
-                {
+            "inputs": [{
                     "type": "text",
                     "name": "email",
                     "description": ""
@@ -24,34 +22,29 @@
             "description": "try to upload a file,and get the url",
             "url": "/upload/file",
             "method": "post",
-            "inputs": [
-                {
-                    "type": "file",
-                    "name": "file",
-                    "description": "file"
-                }
-            ]
+            "inputs": [{
+                "type": "file",
+                "name": "file",
+                "description": "file"
+            }]
         },
         {
             "title": "upload image",
             "description": "try to upload a image,and get the url",
             "url": "/upload/image",
             "method": "post",
-            "inputs": [
-                {
-                    "type": "file",
-                    "name": "image",
-                    "description": "image"
-                }
-            ]
+            "inputs": [{
+                "type": "file",
+                "name": "image",
+                "description": "image"
+            }]
         },
         {
             "title": "user login",
             "description": "a example for login",
             "url": "/login",
             "method": "post",
-            "inputs": [
-                {
+            "inputs": [{
                     "name": "email",
                     "description": "user email"
                 },
@@ -66,8 +59,7 @@
             "description": "a example for sign up",
             "url": "/signup",
             "method": "post",
-            "inputs": [
-                {
+            "inputs": [{
                     "name": "email",
                     "description": "user email"
                 },
@@ -80,6 +72,41 @@
                     "description": "user password"
                 }
             ]
+        },
+        {
+            "title": "check token",
+            "description": "a example for token check",
+            "url": "/check",
+            "method": "post",
+            "inputs": [{
+                    "name": "secret",
+                    "description": "client secret"
+                },
+                {
+                    "name": "token",
+                    "description": "client token"
+                }
+            ]
+        },
+        {
+            "title": "测试银联支付",
+            "description": "一个银联网上支付示例",
+            "url": "/unionpay",
+            "method": "post",
+            "inputs": []
+        },
+        {
+            "title": "测试银联订单确认",
+            "description": "一个银联网上支付示例",
+            "url": "/unionpay/confirm",
+            "method": "post",
+            "inputs": [{
+                "name": "order_sn",
+                "description": "订单编号"
+            }, {
+                "name": "created_at",
+                "description": "订单创建时间"
+            }]
         }
     ]
 }
