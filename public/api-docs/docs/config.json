@@ -5,6 +5,7 @@
         "ng-params-one", "ng-params-two"
     ],
     "docs": [
-        "example.json"
+        "example.json",
+        "goods.json"
     ]
 }
