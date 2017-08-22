@@ -3,9 +3,14 @@
 namespace App\Api\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Api\Traits\RoleTrait;
+use App\Api\Traits\GroupTrait;
+use App\Api\Traits\PermissionTrait;
 
 class User extends Model
 {
+
+    use RoleTrait,GroupTrait,PermissionTrait;
 
     protected $table='user';
 

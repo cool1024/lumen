@@ -92,7 +92,7 @@ function getModePad(modelJson, index) {
 //获取一个Model外壳
 function getApiModelPad(title, index, html) {
     let divDom = document.createElement('div')
-    divDom.className = "panel panel-primary"
+    divDom.className = "panel panel-success"
     divDom.style = ""
     divDom.innerHTML = `
         <div class="panel-heading" role="tab">

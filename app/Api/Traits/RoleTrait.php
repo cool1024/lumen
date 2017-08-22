@@ -15,6 +15,8 @@ trait RoleTrait
 {
     private $roleArray;
 
+    private $useRoles=true;
+
     public function roles()
     {
 

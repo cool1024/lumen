@@ -60,9 +60,6 @@ $app->post('/signup', function (ApiContract $api, AuthContract $auth) {
 $app->get('/signout', function (AuthContract $auth) {
     //$result=$auth->signout();
     //return $result?$api->success('注册成功~'):$api->error('用户已经被注册~');
-
-
-
 });
 
 $app->post('/check', function (ApiContract $api, AuthContract $auth) {
