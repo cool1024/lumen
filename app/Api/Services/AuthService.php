@@ -20,6 +20,7 @@ class AuthService implements AuthContract
 
     public function signout()
     {
+        dd($this->user);
         $this->cleanToken($this->user->id);
     }
 

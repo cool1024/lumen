@@ -57,10 +57,10 @@ $app->post('/signup', function (ApiContract $api, AuthContract $auth) {
     }
 });
 
-$app->get('/signout', function (AuthContract $auth) {
-    //$result=$auth->signout();
-    //return $result?$api->success('注册成功~'):$api->error('用户已经被注册~');
-});
+$app->get('/signout',  ['middleware' => 'auth', function (ApiContract $api,AuthContract $auth) {
+    $auth->signout();
+    return $api->success('signout success');
+}]);
 
 $app->post('/check', function (ApiContract $api, AuthContract $auth) {
     $params = $api->getParams(['secret', 'token']);
@@ -72,29 +72,30 @@ $app->post('/check', function (ApiContract $api, AuthContract $auth) {
         return $params;
     }
 });
+//```````````````````````````````````````UnionPay````````````````````````````````````````//
+// $app->post('/unionpay', function (SdkContract $sdk) {
+//     //[app_id:商户号,price:交易金额（分）,order_sn:订单编号,created_at:订单创建时间，lasted_at:订单超时时间]
+//     return $sdk->get('unionpay')->getHtmlPayOrder([
+//         'app_id' => '777290058110048',
+//         'price' => 1000,
+//         'order_sn' => date('YmdHis'),
+//         'created_at' => date('YmdHis'),
+//         'lasted_at' => date('YmdHis', strtotime('+1 day'))
+//     ]);
+// });
 
-$app->post('/unionpay', function (SdkContract $sdk) {
-    //[app_id:商户号,price:交易金额（分）,order_sn:订单编号,created_at:订单创建时间，lasted_at:订单超时时间]
-    return $sdk->get('unionpay')->getHtmlPayOrder([
-        'app_id' => '777290058110048',
-        'price' => 1000,
-        'order_sn' => date('YmdHis'),
-        'created_at' => date('YmdHis'),
-        'lasted_at' => date('YmdHis', strtotime('+1 day'))
-    ]);
-});
-
-$app->post('/unionpay/confirm', function (ApiContract $api, SdkContract $sdk) {
-    //[app_id:商户号,order_sn:订单编号,created_at:订单创建时间]
-    $params = $api->getParams(['order_sn', 'created_at']);
-    if ($params['result']) {
-        return $sdk->get('unionpay')->getOrderStaus([
-            'app_id' => '777290058110048',
-            'order_sn' =>$params['datas']['order_sn'],
-            'created_at' =>$params['datas']['created_at'],
-        ]);
-    }
-    else {
-        return $params;
-    }
-});
+// $app->post('/unionpay/confirm', function (ApiContract $api, SdkContract $sdk) {
+//     //[app_id:商户号,order_sn:订单编号,created_at:订单创建时间]
+//     $params = $api->getParams(['order_sn', 'created_at']);
+//     if ($params['result']) {
+//         return $sdk->get('unionpay')->getOrderStaus([
+//             'app_id' => '777290058110048',
+//             'order_sn' =>$params['datas']['order_sn'],
+//             'created_at' =>$params['datas']['created_at'],
+//         ]);
+//     }
+//     else {
+//         return $params;
+//     }
+// });
+//```````````````````````````````````````UnionPay````````````````````````````````````````//
