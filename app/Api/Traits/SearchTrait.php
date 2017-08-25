@@ -19,7 +19,7 @@ trait SearchTrait
      * @author xiaojian
      * @param  array[limit:此次查询获取的最大数据量，offset:此次查询的偏移数据量...]
      * @return array[total:符合条件的数据条数，rows:此次查询获取的数据列表]
-     * @todo 指明应该改进或没有实现的地方
+     * @todo   特殊查询需要定制
      */
     public function search($params)
     {

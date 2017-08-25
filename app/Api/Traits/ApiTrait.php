@@ -102,7 +102,7 @@ trait ApiTrait
     //return a error message
     public function error($message = "error")
     {
-        return ['result'=>false,'message'=>$message];
+        return gettype($message)=='string'? ['result'=>false,'message'=>$message]:['result'=>false,'code'=>$message['code'],'message'=>$message['message']];
     }
 
     //return paginate datas
@@ -140,4 +140,5 @@ trait ApiTrait
     {
         return empty($update_result)?self::error($error):self::success($success);
     }
+
 }

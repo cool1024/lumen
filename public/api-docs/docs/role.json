@@ -1,0 +1,29 @@
+{
+    "title": "角色模块",
+    "forms": [{
+            "title": "删除指定ID的角色",
+            "description": "删除指定ID的角色",
+            "url": "/role/delete",
+            "method": "delete",
+            "inputs": [{
+                "name": "roleid",
+                "description": "角色id"
+            }]
+        },
+        {
+            "title": "获取角色列表",
+            "description": "获取角色列表，可分页",
+            "url": "/role/search",
+            "method": "get",
+            "inputs": [{
+                    "name": "limit",
+                    "description": "查询最大数据量"
+                },
+                {
+                    "name": "offset",
+                    "description": "查询偏移量"
+                }
+            ]
+        }
+    ]
+}
