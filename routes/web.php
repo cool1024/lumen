@@ -63,7 +63,7 @@ $app->get('/signout',  ['middleware' => 'auth', function (ApiContract $api,AuthC
 }]);
 
 $app->post('/check', function (ApiContract $api, AuthContract $auth) {
-    $params = $api->getParams(['secret', 'token']);
+    $params = $api->getParams(['ng-params-one', 'ng-params-two'],[],['ng-params-one'=>'secret','ng-params-two'=>'token']);
     if ($params['result']) {
         $result = $auth->check($params['datas']['secret'], $params['datas']['token']);
         return $result ? $api->success('check success') : $api->error('check false');

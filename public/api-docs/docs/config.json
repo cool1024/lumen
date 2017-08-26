@@ -6,6 +6,7 @@
     ],
     "docs": [
         "example.json",
-        "role.json"
+        "role.json",
+        "menu.json"
     ]
 }

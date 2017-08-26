@@ -1,0 +1,10 @@
+{
+    "title": "菜单模块",
+    "forms": [{
+        "title": "获取所有菜单",
+        "description": "获取系统使用的所有菜单",
+        "url": "/menu/group",
+        "method": "get",
+        "inputs": []
+    }]
+}
