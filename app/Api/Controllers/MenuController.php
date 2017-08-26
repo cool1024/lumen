@@ -38,7 +38,18 @@ class MenuController extends Controller
     function getAllMenu()
     {
         //按parentid分组获取数据
-        dd($this->menu->groupData());
+        return $this->menu->groupData();
     } 
 
+    function addMenu(){
+        
+        $params=$this->$api->getParams(['title','icon','url','parentid:integer']);
+        if($params['result']){
+
+            return $this->api->insert_message($this->menu->insertGetId($params['datas']));
+        }
+        else{
+            return $params;
+        }
+    }
 }

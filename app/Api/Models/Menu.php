@@ -13,10 +13,9 @@ class Menu extends Model
 
     protected $fillable = ['id', 'icon', 'title', 'url', 'parentid'];
 
-     //分组依据
-    private $groupKey = 'parentid';
-     
-    //查询字段
-    private $groupParams = ['id', 'icon', 'title', 'url'];
-
+    private $groupConfig=[
+        'groupKey'=>'parentid',//分组依据
+        'groupParams' => ['id', 'icon', 'title', 'url'],//查询字段
+        'orderParams'=>['level','desc']//sort字段
+    ];
 }

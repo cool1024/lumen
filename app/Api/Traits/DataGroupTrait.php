@@ -23,27 +23,44 @@ trait DataGroupTrait
      */
     public function groupData()
     {
-        $selects = [$this->groupKey];
+        $groupKey=$this->groupConfig['groupKey'];
+        $groupParams=$this->groupConfig['groupParams'];
 
-        foreach ($this->groupParams as $value) {
-            $selects[] = DB::raw("group_concat($value) as $value");
+        $selects = [$groupKey];
+
+        foreach ($groupParams as $value) {
+            $selects[] = DB::raw("group_concat($value) as _$value");
         }
 
-        $groups = $this->select($selects)->groupBy($this->groupKey)->get()->toArray();
+        $sql= $this->select($selects)->groupBy($groupKey);
+
+        if (isset($this->groupConfig['orderParams'])) {
+            $sql=$sql->orderBy($this->groupConfig['orderParams'][0], $this->groupConfig['orderParams'][1]);
+        }
+
+        $groups = $sql->get()->toArray();
 
         foreach ($groups as $index => $value) {
-            foreach ($this->groupParams as $value) {
-                $groups[$index][$value] = explode(',', $groups[$index][$value]);
+            foreach ($groupParams as $value) {
+                $groups[$index][$value] = explode(',', $groups[$index]["_$value"]);
+                unset($groups[$index]["_$value"]);
             }
         }
 
-        $result=[];
-        
+        $result=array();
+
         foreach ($groups as $value) {
-            
+            $rows=array();
+            for ($i=0; $i<count($value[$groupParams[0]]); $i++) {
+                $row=[$groupKey=>$value[$groupKey]];
+                foreach ($groupParams as $params) {
+                    $row[$params]=$value[$params][$i];
+                }
+                $rows[]=$row;
+            }
+            $result[]=[$groupKey=>$value[$groupKey],'groups'=>$rows];
         }
 
-        dd($groups);
+        return $result;
     }
-
 }
