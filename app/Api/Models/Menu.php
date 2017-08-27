@@ -2,12 +2,13 @@
 namespace App\Api\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Api\Traits\DataGroupTrait;
+use App\Api\Traits\Orm\DataGroupTrait;
+use App\Api\Traits\Orm\DataSortTrait;
 
 class Menu extends Model
 {
 
-    use DataGroupTrait;
+    use DataGroupTrait,DataSortTrait;
 
     protected $table = 'menu';
 

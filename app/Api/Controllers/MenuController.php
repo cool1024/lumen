@@ -11,13 +11,13 @@ namespace App\Api\Controllers;
 
 use Laravel\Lumen\Routing\Controller;
 use App\Api\Contracts\ApiContract;
-use App\Api\Traits\DataSortTrait;
+use App\Api\Traits\Func\ArraySortTrait;
 use App\Api\Models\Menu;
 use App\Api\ErrorMessage\MenuErrorMessage as ReturnMessage;
 
 class MenuController extends Controller
 {
-    use DataSortTrait;
+    use ArraySortTrait;
 
     private $api;
 
@@ -87,25 +87,35 @@ class MenuController extends Controller
 
     function updateMenu()
     {
-        $params=$this->api->getParams(['id:integer'],['title','icon','url']);
+        $params=$this->api->getParams(['id:integer'], ['title','icon','url']);
         
         if ($params['result']) {
-
             //update menuid
             $menuid=$params['datas']['id'];
             unset($params['datas']['id']);
 
-            if(empty($params['datas'])){
+            if (empty($params['datas'])) {
                 return $this->api->error('not have any params');
             }
 
             //try update menu
-            $this->menu->where('id',$menuid)->update($params['datas']);
+            $this->menu->where('id', $menuid)->update($params['datas']);
 
             return $this->api->success(ReturnMessage::UPDATE_SUCCESS);
-       
         } else {
             return $params;
+        }
+    }
+
+    function sortMenu()
+    {
+        $param=$this->api->getParams(['ids']);
+        if ($param['result']) {
+            $ids=explode(',', $param['datas']['ids']);
+            $result=$this->menu->rsort($ids, 'level');
+            return $result?$this->api->success(ReturnMessage::SORT_SUCCESS):$this->api->error(ReturnMessage::SORT_ERROR_PARAMS);
+        } else {
+            return $param;
         }
     }
 }

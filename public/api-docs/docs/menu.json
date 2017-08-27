@@ -36,5 +36,13 @@
             { "name": "title", "description": "" },
             { "name": "url", "description": "" }
         ]
+    }, {
+        "title": "sort menu",
+        "description": "",
+        "url": "/menu/sort",
+        "method": "put",
+        "inputs": [
+            { "name": "ids", "description": "" }
+        ]
     }]
 }

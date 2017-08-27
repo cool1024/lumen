@@ -17,3 +17,6 @@ $app->delete('menu/delete','MenuController@deleteMenu');
 
 //update menu
 $app->put('menu/update','MenuController@updateMenu');
+
+//sort menu
+$app->put('menu/sort','MenuController@sortMenu');

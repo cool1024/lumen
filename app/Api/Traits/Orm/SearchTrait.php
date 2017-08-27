@@ -7,7 +7,7 @@
  * @exp:     提供了模型搜索方法
  */
 
-namespace App\Api\Traits;
+namespace App\Api\Traits\Orm;
 
 trait SearchTrait
 {

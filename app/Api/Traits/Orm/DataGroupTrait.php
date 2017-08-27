@@ -7,7 +7,7 @@
  * @exp:     提供了数据分组查询方法（只适用于少量数据）
  */
 
-namespace App\Api\Traits;
+namespace App\Api\Traits\Orm;
 
 use DB;
 

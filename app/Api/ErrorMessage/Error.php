@@ -12,4 +12,5 @@ class Error
     const DANGER_OP="500";//危险的操作
     const NO_ALLOW_OP="600";//不允许的操作
     const SQL_SERVE_ERROR="700";//SQL SERVER ERROR
+    const ERROR_PARAMS="700";//PARAMS ERROR
 }

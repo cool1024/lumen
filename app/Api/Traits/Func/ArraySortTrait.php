@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Api\Traits;
+namespace App\Api\Traits\Func;
 
-trait DataSortTrait
+trait ArraySortTrait
 {
 
     function array_sort_params($arrays, $sort_key, $sort_order = SORT_ASC, $sort_type = SORT_NUMERIC)
