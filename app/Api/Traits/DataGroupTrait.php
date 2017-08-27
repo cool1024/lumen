@@ -34,10 +34,6 @@ trait DataGroupTrait
 
         $sql= $this->select($selects)->groupBy($groupKey);
 
-        if (isset($this->groupConfig['orderParams'])) {
-            $sql=$sql->orderBy($this->groupConfig['orderParams'][0], $this->groupConfig['orderParams'][1]);
-        }
-
         $groups = $sql->get()->toArray();
 
         foreach ($groups as $index => $value) {

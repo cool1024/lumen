@@ -1,20 +1,24 @@
 <?php
 
-/** 
+/**
  * @author xiaojian
  * @file MenuController.php
  * @info 系统菜单控制器
- * @date 2017年8月23日 
+ * @date 2017年8月23日
  */
 
 namespace App\Api\Controllers;
 
 use Laravel\Lumen\Routing\Controller;
 use App\Api\Contracts\ApiContract;
+use App\Api\Traits\DataSortTrait;
 use App\Api\Models\Menu;
+use App\Api\ErrorMessage\MenuErrorMessage as ReturnMessage;
 
 class MenuController extends Controller
 {
+    use DataSortTrait;
+
     private $api;
 
     private $menu;
@@ -27,7 +31,7 @@ class MenuController extends Controller
     public function __construct(ApiContract $api)
     {
         $this->api = $api;
-        $this->menu = new Menu();        
+        $this->menu = new Menu();
     }
 
     /**
@@ -37,18 +41,70 @@ class MenuController extends Controller
      */
     function getAllMenu()
     {
-        //按parentid分组获取数据
-        return $this->menu->groupData();
-    } 
+        //get groups data
+        $groups=$this->menu->groupData();
 
-    function addMenu(){
-        
-        $params=$this->$api->getParams(['title','icon','url','parentid:integer']);
-        if($params['result']){
-
-            return $this->api->insert_message($this->menu->insertGetId($params['datas']));
+        //desc sort  groups data by level
+        foreach ($groups as $key => $value) {
+            $groups[$key]['groups']=$this->array_sort_params($value['groups'], 'level', SORT_DESC);
         }
-        else{
+
+        //按parentid分组获取数据
+        return $this->api->datas($groups, ReturnMessage::SELECT_SUCCESS);
+    }
+
+    function addMenu()
+    {
+        $params=$this->api->getParams(['title','icon','url','parentid:integer']);
+
+        if ($params['result']) {
+            return $this->api->insert_message($this->menu->insertGetId($params['datas'], ReturnMessage::INSERT_SUCCESS, ReturnMessage::INSERT_ERROR_SQL_SERVE_ERROR));
+        } else {
+            return $params;
+        }
+    }
+
+    function deleteMenu()
+    {
+
+        $param=$this->api->getParam('menuid:integer');
+
+        if ($param['result']) {
+            //delete menuid
+            $menuid=$param['datas']['menuid'];
+
+            //remove child menu
+            $this->menu->where('parentid', $menuid)->delete();
+
+            //remove self
+            $result =$this->menu->destroy($menuid);
+
+            return $this->api->delete_message($result, ReturnMessage::DELETE_SUCCESS, ReturnMessage::DELETE_ERROR_NOTFOUND);
+        } else {
+            return $param;
+        }
+    }
+
+    function updateMenu()
+    {
+        $params=$this->api->getParams(['id:integer'],['title','icon','url']);
+        
+        if ($params['result']) {
+
+            //update menuid
+            $menuid=$params['datas']['id'];
+            unset($params['datas']['id']);
+
+            if(empty($params['datas'])){
+                return $this->api->error('not have any params');
+            }
+
+            //try update menu
+            $this->menu->where('id',$menuid)->update($params['datas']);
+
+            return $this->api->success(ReturnMessage::UPDATE_SUCCESS);
+       
+        } else {
             return $params;
         }
     }

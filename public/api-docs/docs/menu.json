@@ -6,5 +6,35 @@
         "url": "/menu/group",
         "method": "get",
         "inputs": []
+    }, {
+        "title": "add new menu",
+        "description": "",
+        "url": "/menu/add",
+        "method": "post",
+        "inputs": [
+            { "name": "icon", "description": "" },
+            { "name": "title", "description": "" },
+            { "name": "url", "description": "" },
+            { "name": "parentid", "description": "" }
+        ]
+    }, {
+        "title": "delete menu",
+        "description": "",
+        "url": "/menu/delete",
+        "method": "delete",
+        "inputs": [
+            { "name": "menuid", "description": "" }
+        ]
+    }, {
+        "title": "update menu",
+        "description": "",
+        "url": "/menu/update",
+        "method": "put",
+        "inputs": [
+            { "name": "id", "description": "" },
+            { "name": "icon", "description": "" },
+            { "name": "title", "description": "" },
+            { "name": "url", "description": "" }
+        ]
     }]
 }
