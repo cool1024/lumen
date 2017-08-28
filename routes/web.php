@@ -36,12 +36,10 @@ $app->post('/login', function (ApiContract $api, AuthContract $auth) {
     if ($params['result']) {
         if ($auth->login($params['datas'])) {
             return $api->datas($auth->updateToken());
-        }
-        else {
+        } else {
             return $api->error("email or password wrong");
         }
-    }
-    else {
+    } else {
         return $params;
     }
 });
@@ -51,27 +49,30 @@ $app->post('/signup', function (ApiContract $api, AuthContract $auth) {
     if ($params['result']) {
         $result = $auth->signup($params['datas']);
         return $result ? $api->success('注册成功~') : $api->error('用户已经被注册~');
-    }
-    else {
+    } else {
         return $params;
     }
 });
 
-$app->get('/signout',  ['middleware' => 'auth', function (ApiContract $api,AuthContract $auth) {
+$app->get('/signout', ['middleware' => 'auth', function (ApiContract $api, AuthContract $auth) {
     $auth->signout();
     return $api->success('signout success');
 }]);
 
 $app->post('/check', function (ApiContract $api, AuthContract $auth) {
-    $params = $api->getParams(['ng-params-one', 'ng-params-two'],[],['ng-params-one'=>'secret','ng-params-two'=>'token']);
+    $params = $api->getParams(['ng-params-one', 'ng-params-two'], [], ['ng-params-one'=>'secret','ng-params-two'=>'token']);
     if ($params['result']) {
         $result = $auth->check($params['datas']['secret'], $params['datas']['token']);
         return $result ? $api->success('check success') : $api->error('check false');
-    }
-    else {
+    } else {
         return $params;
     }
 });
+
+$app->get('/info', ['middleware'=>'auth', function (AuthContract $auth) {
+    return $auth->info();
+}]);
+
 //```````````````````````````````````````UnionPay````````````````````````````````````````//
 // $app->post('/unionpay', function (SdkContract $sdk) {
 //     //[app_id:商户号,price:交易金额（分）,order_sn:订单编号,created_at:订单创建时间，lasted_at:订单超时时间]

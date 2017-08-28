@@ -35,7 +35,7 @@ class AuthMiddleware
         if($this->auth->check($secret,$token)==false){
 			return $this->api->error('token error');
 		}
-		
+
         return $next($request);
     }
 }

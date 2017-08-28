@@ -2,13 +2,13 @@
 
 namespace App\Api\Services;
 
+use Illuminate\Support\Facades\Facade;
 use App\Api\Contracts\AuthContract;
 use App\Api\Traits\AuthTrait;
 use App\Api\Traits\LoginTrait;
 use App\Api\Traits\TokenTrait;
 
-
-class AuthService implements AuthContract
+class AuthService extends Facade implements AuthContract
 {
     use AuthTrait,LoginTrait;//TokenTrait;
 
@@ -16,11 +16,16 @@ class AuthService implements AuthContract
 
     public function __construct()
     {
+        
+    }
+
+    protected static function getFacadeAccessor()
+    {
+        return 'payment';
     }
 
     public function signout()
     {
-        dd($this->user);
         $this->cleanToken($this->user->id);
     }
 
@@ -70,8 +75,9 @@ class AuthService implements AuthContract
         }
     }
 
-    public function check($secret_id,$token){
-        $this->user=$this->_checkToken($secret_id,$token);
+    public function check($secret_id, $token)
+    {
+        $this->user=$this->_checkToken($secret_id, $token);
         return !empty($this->user);
     }
 }
