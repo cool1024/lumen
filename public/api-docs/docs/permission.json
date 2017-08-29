@@ -1,0 +1,40 @@
+{
+    "title": "权限模块",
+    "forms": [{
+        "title": "获取所有的权限模块列表&权限列表",
+        "description": "获取所有的权限模块列表&权限列表",
+        "url": "/permission/all",
+        "method": "get",
+        "inputs": []
+    }, {
+        "title": "添加权限",
+        "description": "在指定模块中添加权限",
+        "url": "/permission/add",
+        "method": "post",
+        "inputs": [
+            { "name": "name", "description": "权限名称" },
+            { "name": "key", "description": "权限关键词" },
+            { "name": "description", "description": "权限描述（可选）" },
+            { "name": "modelid", "description": "模块id" }
+        ]
+    }, {
+        "title": "删除权限",
+        "description": "删除指定id的权限",
+        "url": "/permission/delete",
+        "method": "delete",
+        "inputs": [
+            { "name": "permissionid", "description": "权限id" }
+        ]
+    }, {
+        "title": "修改权限",
+        "description": "在指定模块中添加权限",
+        "url": "/permission/update",
+        "method": "put",
+        "inputs": [
+            { "name": "id", "description": "权限ID" },
+            { "name": "name", "description": "权限名称" },
+            { "name": "key", "description": "权限关键词" },
+            { "name": "description", "description": "权限描述（可选）" }
+        ]
+    }]
+}

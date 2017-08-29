@@ -7,8 +7,8 @@
         "method": "get",
         "inputs": []
     }, {
-        "title": "add new menu",
-        "description": "",
+        "title": "添加新菜单",
+        "description": "可以添加子菜单/主菜单，主菜单默认url为空，parentid为0",
         "url": "/menu/add",
         "method": "post",
         "inputs": [
@@ -18,16 +18,16 @@
             { "name": "parentid", "description": "" }
         ]
     }, {
-        "title": "delete menu",
-        "description": "",
+        "title": "删除菜单",
+        "description": "可以删除子菜单/主菜单，删除主菜单时或同时删除他的下级菜单",
         "url": "/menu/delete",
         "method": "delete",
         "inputs": [
             { "name": "menuid", "description": "" }
         ]
     }, {
-        "title": "update menu",
-        "description": "",
+        "title": "修改菜单",
+        "description": "可以修改子菜单/主菜单，需要提供修改菜单的id，主菜单url为空",
         "url": "/menu/update",
         "method": "put",
         "inputs": [
@@ -37,8 +37,8 @@
             { "name": "url", "description": "" }
         ]
     }, {
-        "title": "sort menu",
-        "description": "",
+        "title": "菜单排序",
+        "description": "可排序主菜单/子菜单，但不能混用",
         "url": "/menu/sort",
         "method": "put",
         "inputs": [
