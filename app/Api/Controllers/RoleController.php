@@ -63,6 +63,7 @@ class RoleController extends Controller
 
         if ($param['result']) {
 
+            $this->api->where('parentid', $param['datas']['roleid'])->update - (['parentid' => 0]);
             return $this->api->delete_message($this->role->destroy($param['datas']['roleid']), Error::DELETE_SUCCESS, Error::DELETE_ERROR_NOTFOUND);
         }
         else {

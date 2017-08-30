@@ -56,7 +56,7 @@ class PermissionController extends Controller
      * @author xiaojian
      * @return array[result:请求结果，message:操作信息,datas:数据结果]
      */
-    function addNewPermission()
+    function addPermission()
     {
         //必须参数[name:权限名称，modelid:模块id,key:权限关键词],可选参数[description:权限描述]
         $params = $this->api->getParams(['name:string', 'modelid:integer', 'key:string'], ['description:string|max:100']);
@@ -122,6 +122,78 @@ class PermissionController extends Controller
         }
         else {
             return $params;
+        }
+    }
+
+    /**
+     * @name   修改指定权限模块（用于权限设置模块）
+     * @author xiaojian
+     * @return array[result:请求结果，message:操作信息,datas:数据结果]
+     */
+    function changePermissionModel()
+    {
+        //必须参数[id:权限模块ID,name:权限模块名称]
+        $params = $this->api->getParams(['id:integer', 'name:string']);
+
+        if ($params['result']) {
+
+            $model = $this->model->find($params['datas']['id']);
+
+            if (empty($model)) {
+                return $this->api->error('model not found');
+            }
+            else {
+                $model->name = $params['datas']['name'];
+                $model->save();
+                return $this->api->success('model update success');
+            }
+        }
+        else {
+            return $params;
+        }
+    }
+
+    /**
+     * @name   添加权限模块（用于权限设置模块）
+     * @author xiaojian
+     * @return array[result:请求结果，message:操作信息,datas:数据结果]
+     */
+    function addPermissionModel()
+    {
+        //必须参数[name:权限模块名称]
+        $params = $this->api->getParams(['name:string|max:45']);
+
+        if ($params['result']) {
+            $id = $this->model->insertGetId($params['datas']);
+            return $this->api->insert_message($id);
+        }
+        else {
+            return $params;
+        }
+    }
+
+    /**
+     * @name   删除指定id的权限模块（用于权限设置模块）
+     * @author xiaojian
+     * @return array[result:请求结果，message:操作信息,datas:数据结果]
+     */
+    function deletePermissionModel()
+    {
+        //必须参数[id:权限ID]
+        $param = $this->api->getParams(['modelid:integer']);
+
+        if ($param['result']) {
+
+            //删除模块下的子权限
+            $this->permission->where('modelid', $param['datas']['modelid']);
+
+            //删除权限模块
+            $result = $this->model->destroy($param['datas']['modelid']);
+
+            return $this->api->delete_message($result);
+        }
+        else {
+            return $param;
         }
     }
 
