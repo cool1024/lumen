@@ -72,8 +72,8 @@
             ]
         },
         {
-            "title": "signout",
-            "description": "",
+            "title": "退出登入",
+            "description": "用户退出登入接口",
             "url": "/signout",
             "method": "get",
             "inputs": []
@@ -94,8 +94,8 @@
             ]
         },
         {
-            "title": "get user info",
-            "description": "",
+            "title": "获取用户信息",
+            "description": "用户登入成功后，通过此接口获取自身信息",
             "url": "/info",
             "method": "get",
             "inputs": []

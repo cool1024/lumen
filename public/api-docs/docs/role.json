@@ -24,6 +24,13 @@
                     "description": "查询偏移量"
                 }
             ]
+        },
+        {
+            "title": "获取角色权限面板数据",
+            "description": "",
+            "url": "/role/permissions",
+            "method": "get",
+            "inputs": []
         }
     ]
 }
