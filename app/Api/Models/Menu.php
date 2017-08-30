@@ -18,8 +18,7 @@ class Menu extends Model
 
     private $groupConfig=[
         'groupKey'=>'parentid',//分组依据
-        'groupParams' => ['id', 'icon', 'title', 'url','level'],//查询字段
-        'orderParams'=>['level','asc']//sort字段
+        'groupParams' => ['id', 'icon', 'title', 'url','level','permissionid'],//查询字段
     ];
 
 }

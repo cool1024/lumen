@@ -42,11 +42,11 @@ class MenuController extends Controller
     function getAllMenu()
     {
         //get groups data
-        $groups=$this->menu->groupData();
+        $groups = $this->menu->groupData();
 
         //desc sort  groups data by level
         foreach ($groups as $key => $value) {
-            $groups[$key]['groups']=$this->array_sort_params($value['groups'], 'level', SORT_DESC);
+            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_DESC);
         }
 
         //按parentid分组获取数据
@@ -55,11 +55,12 @@ class MenuController extends Controller
 
     function addMenu()
     {
-        $params=$this->api->getParams(['title','icon','url','parentid:integer']);
+        $params = $this->api->getParams(['title', 'icon', 'url', 'parentid:integer', 'permissionid:integer']);
 
         if ($params['result']) {
             return $this->api->insert_message($this->menu->insertGetId($params['datas'], ReturnMessage::INSERT_SUCCESS, ReturnMessage::INSERT_ERROR_SQL_SERVE_ERROR));
-        } else {
+        }
+        else {
             return $params;
         }
     }
@@ -67,31 +68,32 @@ class MenuController extends Controller
     function deleteMenu()
     {
 
-        $param=$this->api->getParam('menuid:integer');
+        $param = $this->api->getParam('menuid:integer');
 
         if ($param['result']) {
             //delete menuid
-            $menuid=$param['datas']['menuid'];
+            $menuid = $param['datas']['menuid'];
 
             //remove child menu
             $this->menu->where('parentid', $menuid)->delete();
 
             //remove self
-            $result =$this->menu->destroy($menuid);
+            $result = $this->menu->destroy($menuid);
 
             return $this->api->delete_message($result, ReturnMessage::DELETE_SUCCESS, ReturnMessage::DELETE_ERROR_NOTFOUND);
-        } else {
+        }
+        else {
             return $param;
         }
     }
 
     function updateMenu()
     {
-        $params=$this->api->getParams(['id:integer'], ['title','icon','url']);
-        
+        $params = $this->api->getParams(['id:integer'], ['title', 'icon', 'url', 'permissionid:integer']);
+
         if ($params['result']) {
             //update menuid
-            $menuid=$params['datas']['id'];
+            $menuid = $params['datas']['id'];
             unset($params['datas']['id']);
 
             if (empty($params['datas'])) {
@@ -102,19 +104,21 @@ class MenuController extends Controller
             $this->menu->where('id', $menuid)->update($params['datas']);
 
             return $this->api->success(ReturnMessage::UPDATE_SUCCESS);
-        } else {
+        }
+        else {
             return $params;
         }
     }
 
     function sortMenu()
     {
-        $param=$this->api->getParams(['ids']);
+        $param = $this->api->getParams(['ids']);
         if ($param['result']) {
-            $ids=explode(',', $param['datas']['ids']);
-            $result=$this->menu->rsort($ids, 'level');
-            return $result?$this->api->success(ReturnMessage::SORT_SUCCESS):$this->api->error(ReturnMessage::SORT_ERROR_PARAMS);
-        } else {
+            $ids = explode(',', $param['datas']['ids']);
+            $result = $this->menu->rsort($ids, 'level');
+            return $result ? $this->api->success(ReturnMessage::SORT_SUCCESS) : $this->api->error(ReturnMessage::SORT_ERROR_PARAMS);
+        }
+        else {
             return $param;
         }
     }

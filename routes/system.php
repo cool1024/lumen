@@ -3,14 +3,21 @@
 //------------------------角色模块----------------------------
 
 //角色列表（分页）
-$app->get('/role/search', 'RoleController@getRoles');
+$app->get('role/search', 'RoleController@getRoles');
 
 //删除角色
-$app->delete('/role/delete', 'RoleController@deleteRole');
+$app->delete('role/delete', 'RoleController@deleteRole');
+
+//更新角色
+$app->put('role/update','RoleController@changeRole');
+
+//添加角色
+$app->post('role/add','RoleController@addRole');
 
 //获取权限分配面板数据
 $app->get('role/permissions','PermissionController@getAllPermissionAndModel');
 
+//------------------------菜单模块----------------------------
 
 //获取所有菜单（层级分组）
 $app->get('menu/group','MenuController@getAllMenu');
@@ -26,6 +33,10 @@ $app->put('menu/update','MenuController@updateMenu');
 
 //排序菜单
 $app->put('menu/sort','MenuController@sortMenu');
+
+//获取分配权限下拉数据
+$app->get('menu/permissions','PermissionController@getAllPermissionAndModel');
+
 
 //获取权限列表&权限模块
 $app->get('permission/all','PermissionController@getAllPermissionAndModel');
