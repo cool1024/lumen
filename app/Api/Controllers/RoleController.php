@@ -101,7 +101,7 @@ class RoleController extends Controller
             return $this->api->success(RetrunMessage::UPDATE_SUCCESS);
         }
         else {
-            return $param;
+            return $params;
         }
     }
 
@@ -123,7 +123,7 @@ class RoleController extends Controller
             return $this->api->insert_message($id, RetrunMessage::INSERT_SUCCESS, RetrunMessage::INSERT_ERROR_SQL_SERVE);
         }
         else {
-            return $param;
+            return $params;
         }
     }
 

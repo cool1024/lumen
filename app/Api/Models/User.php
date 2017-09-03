@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Api\Traits\RoleTrait;
 use App\Api\Traits\GroupTrait;
 use App\Api\Traits\PermissionTrait;
+use App\Api\Traits\Orm\SearchTrait;
 
 class User extends Model
 {
 
-    use RoleTrait,GroupTrait,PermissionTrait;
+    use SearchTrait,RoleTrait,GroupTrait,PermissionTrait;
 
     protected $table='user';
 

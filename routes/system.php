@@ -1,4 +1,17 @@
 <?php
+//------------------------账号模块----------------------------
+
+//账号列表（分页）
+$app->get('admin/search', 'AdminController@getAdmins');
+
+//删除账号
+$app->delete('admin/delete', 'AdminController@deleteAdmin');
+
+//更新账号
+$app->put('admin/update', 'AdminController@changeAdmin');
+
+//添加账号
+$app->post('admin/add', 'AdminController@addAdmin');
 
 //------------------------角色模块----------------------------
 
@@ -9,52 +22,52 @@ $app->get('role/search', 'RoleController@getRoles');
 $app->delete('role/delete', 'RoleController@deleteRole');
 
 //更新角色
-$app->put('role/update','RoleController@changeRole');
+$app->put('role/update', 'RoleController@changeRole');
 
 //添加角色
-$app->post('role/add','RoleController@addRole');
+$app->post('role/add', 'RoleController@addRole');
 
 //获取权限分配面板数据
-$app->get('role/permissions','PermissionController@getAllPermissionAndModel');
+$app->get('role/permissions', 'PermissionController@getAllPermissionAndModel');
 
 //------------------------菜单模块----------------------------
 
 //获取所有菜单（层级分组）
-$app->get('menu/group','MenuController@getAllMenu');
+$app->get('menu/group', 'MenuController@getAllMenu');
 
 //添加新菜单
-$app->post('menu/add','MenuController@addMenu');
+$app->post('menu/add', 'MenuController@addMenu');
 
 //删除菜单
-$app->delete('menu/delete','MenuController@deleteMenu');
+$app->delete('menu/delete', 'MenuController@deleteMenu');
 
 //更新菜单
-$app->put('menu/update','MenuController@updateMenu');
+$app->put('menu/update', 'MenuController@updateMenu');
 
 //排序菜单
-$app->put('menu/sort','MenuController@sortMenu');
+$app->put('menu/sort', 'MenuController@sortMenu');
 
 //获取分配权限下拉数据
-$app->get('menu/permissions','PermissionController@getAllPermissionAndModel');
+$app->get('menu/permissions', 'PermissionController@getAllPermissionAndModel');
 
 
 //获取权限列表&权限模块
-$app->get('permission/all','PermissionController@getAllPermissionAndModel');
+$app->get('permission/all', 'PermissionController@getAllPermissionAndModel');
 
 //添加权限
-$app->post('permission/add','PermissionController@addPermission');
+$app->post('permission/add', 'PermissionController@addPermission');
 
 //删除权限
-$app->delete('permission/delete','PermissionController@deletePermission');
+$app->delete('permission/delete', 'PermissionController@deletePermission');
 
 //更新权限
-$app->put('permission/update','PermissionController@changePermission');
+$app->put('permission/update', 'PermissionController@changePermission');
 
 //添加权限模块
-$app->post('permission/model/add','PermissionController@addPermissionModel');
+$app->post('permission/model/add', 'PermissionController@addPermissionModel');
 
 //删除权限模块
-$app->delete('permission/model/delete','PermissionController@deletePermissionModel');
+$app->delete('permission/model/delete', 'PermissionController@deletePermissionModel');
 
 //更新权限模块
-$app->put('permission/model/update','PermissionController@changePermissionModel');
+$app->put('permission/model/update', 'PermissionController@changePermissionModel');
