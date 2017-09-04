@@ -21,7 +21,7 @@ trait DataGroupTrait
      * @return array[..[grounpid,groupdata]..]
      * @todo   特殊查询需要定制
      */
-    public function groupData()
+    public function groupData($wheres = [])
     {
         $groupKey=$this->groupConfig['groupKey'];
         $groupParams=$this->groupConfig['groupParams'];
@@ -33,6 +33,19 @@ trait DataGroupTrait
         }
 
         $sql= $this->select($selects)->groupBy($groupKey);
+
+        if (!empty($wheres)) {
+            foreach ($wheres as $where) {
+                $op=$where['op'];
+                if (count($where['params'])==1) {
+                    $sql=$sql->$op($where['params'][0]);
+                } elseif (count($where['params'])==2) {
+                    $sql=$sql->$op($where['params'][0], $where['params'][1]);
+                } elseif (count($where['params'])==3) {
+                    $sql=$sql->$op($where['params'][0], $where['params'][1], $where['params'][2]);
+                }
+            }
+        }
 
         $groups = $sql->get()->toArray();
 

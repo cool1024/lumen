@@ -79,6 +79,13 @@
             "inputs": []
         },
         {
+            "title": "menus",
+            "description": "get user menus",
+            "url": "/menus",
+            "method": "get",
+            "inputs": []
+        },
+        {
             "title": "权限令牌校验",
             "description": "用户权限令牌校验测试接口",
             "url": "/check",

@@ -11,6 +11,7 @@ namespace App\Api\Controllers;
 
 use Laravel\Lumen\Routing\Controller;
 use App\Api\Contracts\ApiContract;
+use App\Api\Contracts\AuthContract;
 use App\Api\Traits\Func\ArraySortTrait;
 use App\Api\Models\Menu;
 use App\Api\ErrorMessage\MenuErrorMessage as ReturnMessage;
@@ -23,14 +24,17 @@ class MenuController extends Controller
 
     private $menu;
 
+    private $auth;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ApiContract $api)
+    public function __construct(ApiContract $api, AuthContract $auth)
     {
         $this->api = $api;
+        $this->auth = $auth;
         $this->menu = new Menu();
     }
 
@@ -59,8 +63,7 @@ class MenuController extends Controller
 
         if ($params['result']) {
             return $this->api->insert_message($this->menu->insertGetId($params['datas'], ReturnMessage::INSERT_SUCCESS, ReturnMessage::INSERT_ERROR_SQL_SERVE_ERROR));
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -81,8 +84,7 @@ class MenuController extends Controller
             $result = $this->menu->destroy($menuid);
 
             return $this->api->delete_message($result, ReturnMessage::DELETE_SUCCESS, ReturnMessage::DELETE_ERROR_NOTFOUND);
-        }
-        else {
+        } else {
             return $param;
         }
     }
@@ -104,8 +106,7 @@ class MenuController extends Controller
             $this->menu->where('id', $menuid)->update($params['datas']);
 
             return $this->api->success(ReturnMessage::UPDATE_SUCCESS);
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -117,8 +118,7 @@ class MenuController extends Controller
             $ids = explode(',', $param['datas']['ids']);
             $result = $this->menu->rsort($ids, 'level');
             return $result ? $this->api->success(ReturnMessage::SORT_SUCCESS) : $this->api->error(ReturnMessage::SORT_ERROR_PARAMS);
-        }
-        else {
+        } else {
             return $param;
         }
     }
@@ -130,6 +130,20 @@ class MenuController extends Controller
      */
     function getAdminMenu()
     {
-        //$this->menu->where
+        $permissions=$this->auth->getPermissions();
+
+        $permissions[]=0;
+
+        $groups=$this->menu->groupData([
+            ['op'=>'whereIn','params'=>['permission',$permissions]]
+        ]);
+
+        //desc sort  groups data by level
+        foreach ($groups as $key => $value) {
+            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_DESC);
+        }
+
+        //按parentid分组获取数据
+        return $this->api->datas($groups, ReturnMessage::SELECT_SUCCESS);
     }
 }

@@ -16,6 +16,8 @@ $app->get('/info', function (AuthContract $auth) {
     return $auth->info();
 });
 
+$app->get('/menus', 'MenuController@getAdminMenu');
+
 //获取用户权限列表(仅供API测试使用)
 $app->get('/permission', function (AuthContract $auth) {
     return $auth->info()->userAllPermission();
@@ -26,8 +28,7 @@ $app->get('/has/permission', function (AuthContract $auth, ApiContract $api) {
     $param = $api->getParam('key');
     if ($param['result']) {
         return $auth->hasPermission($param['datas']['key']);
-    }
-    else {
+    } else {
         return $param;
     }
 });

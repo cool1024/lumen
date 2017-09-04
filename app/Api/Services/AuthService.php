@@ -17,7 +17,6 @@ class AuthService extends Facade implements AuthContract
 
     public function __construct()
     {
-
     }
 
     protected static function getFacadeAccessor()
@@ -64,12 +63,10 @@ class AuthService extends Facade implements AuthContract
         if (isset($this->user)) {
             if (isset($this->isLogin) && $this->isLogin == true) {
                 return 'login in';
-            }
-            else {
+            } else {
                 return 'login false';
             }
-        }
-        else {
+        } else {
             return 'login fail';
         }
     }
@@ -78,8 +75,7 @@ class AuthService extends Facade implements AuthContract
     {
         if ($this->token_save_table == 'USER_TABLE') {
             return $this->_updateToken($this->user->id);
-        }
-        elseif ($this->token_save_table == 'LOGINS_TABLE') {
+        } elseif ($this->token_save_table == 'LOGINS_TABLE') {
             return $this->_updateToken($this->user->id, $token_name);
         }
     }
@@ -88,8 +84,7 @@ class AuthService extends Facade implements AuthContract
     {
         if ($this->token_save_table == 'USER_TABLE') {
             $this->_cleanToken($this->user->id);
-        }
-        elseif ($this->token_save_table == 'LOGINS_TABLE') {
+        } elseif ($this->token_save_table == 'LOGINS_TABLE') {
             $this->_cleanToken($this->user->id, $token_name);
         }
     }
@@ -102,7 +97,11 @@ class AuthService extends Facade implements AuthContract
 
     public function hasPermission($key)
     {
-        dd($this->user->hasPermission($key));
-        dd($this->user->role());
+        return $this->user->hasPermission($key);
+    }
+
+    public function getPermissions()
+    {
+        return $this->user->userAllPermission();
     }
 }

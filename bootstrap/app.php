@@ -98,7 +98,7 @@ $app->register(App\Sdk\SdkServiceProvider::class);
  */
 
 //公开模块（无需登入，及其他权限即可使用）
-$app->group(['middleware' => 'auth'], function () use ($app) {
+$app->group(['namespace' => 'App\Api\Controllers'], function () use ($app) {
     require __DIR__ . '/../routes/public.php';
 });
 

@@ -24,4 +24,9 @@ interface AuthContract
 
     //加密密码
     public function secretPassword($password);
+
+    public function hasPermission($key);
+
+    public function getPermissions();
+
 }
