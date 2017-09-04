@@ -13,6 +13,9 @@ $app->put('admin/update', 'AdminController@changeAdmin');
 //添加账号
 $app->post('admin/add', 'AdminController@addAdmin');
 
+//获取账号角色下拉列表
+$app->get('role/options', 'RoleController@getRolesOptions');
+
 //------------------------角色模块----------------------------
 
 //角色列表（分页）

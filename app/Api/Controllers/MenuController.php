@@ -122,4 +122,14 @@ class MenuController extends Controller
             return $param;
         }
     }
+
+    /**
+     * @name   获取管理员的菜单（根据用户的权限列出菜单）
+     * @author xiaojian
+     * @return array[result:请求结果，message:操作信息,datas:数据结果]
+     */
+    function getAdminMenu()
+    {
+        //$this->menu->where
+    }
 }

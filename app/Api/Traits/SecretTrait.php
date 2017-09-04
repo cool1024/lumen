@@ -27,4 +27,5 @@ trait SecretTrait
         $id = base64_decode($secret);
         return (bool)preg_match('/^[1-9]d*$/', $id) ? $id : 0;
     }
+
 }

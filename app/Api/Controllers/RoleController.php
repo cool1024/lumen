@@ -50,6 +50,17 @@ class RoleController extends Controller
     }
 
     /**
+     * @name   获取角色下拉列表
+     * @author xiaojian
+     * @return array[result:请求结果，message:操作信息,datas:查询数据]
+     */
+    function getRolesOptions()
+    {
+        return $this->api->datas($this->role->all());
+
+    }
+
+    /**
      * @name   删除指定角色（角色被删除后，使用此角色的组将剔除此角色，此角色的下级角色将没有上级角色）
      * @author xiaojian
      * @return array[result:请求结果，message:操作信息]

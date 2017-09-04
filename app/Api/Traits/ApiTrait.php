@@ -27,8 +27,8 @@ trait ApiTrait
             $validator_target[$param_name]="required|$param_avlid";
             $validator_values[$param_name]=Request::input($param_name);
         } else {
-            $validator_target[$value]="required";
-            $validator_values[$value]=Request::input($value);
+            $validator_target[$param]="required";
+            $validator_values[$param]=Request::input($param);
         }
 
         $validator=Validator::make(Request::all(), $validator_target);

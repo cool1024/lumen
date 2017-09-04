@@ -11,6 +11,7 @@ namespace App\Api\Controllers;
 
 use Laravel\Lumen\Routing\Controller;
 use App\Api\Contracts\ApiContract;
+use App\Api\Contracts\AuthContract;
 use App\Api\Models\User;
 
 // use App\Api\ErrorMessage\RoleErrorMessage as RetrunMessage;
@@ -21,14 +22,17 @@ class AdminController extends Controller
 
     private $admin;
 
+    private $auth;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(ApiContract $api)
+    public function __construct(ApiContract $api, AuthContract $auth)
     {
         $this->api = $api;
+        $this->auth = $auth;
         $this->admin = new User();
     }
 
@@ -42,7 +46,8 @@ class AdminController extends Controller
 
         if ($params['result']) {
             return $this->api->datas($this->admin->search($params['datas']));
-        } else {
+        }
+        else {
             return $params;
         }
     }
@@ -60,9 +65,10 @@ class AdminController extends Controller
         $param = $this->api->getParam('id:integer');
 
         if ($param['result']) {
-            $this->admin->where('parentid', $param['datas']['adminid'])->update(['parentid' => 0]);
-            return $this->api->delete_message($this->admin->destroy($param['datas']['adminid']), RetrunMessage::DELETE_SUCCESS, RetrunMessage::DELETE_ERROR_NOTFOUND);
-        } else {
+            $result = $this->admin->destroy($param['datas']['id']);
+            return $this->api->delete_message($result, 'admin delete success', 'admin not exist');
+        }
+        else {
             return $param;
         }
     }
@@ -74,33 +80,35 @@ class AdminController extends Controller
      */
     function changeAdmin()
     {
- 
-        $params = $this->api->getParams(['id:integer','name','email'],['password:min:6|max:20']);
+
+        $params = $this->api->getParams(['id:integer', 'name', 'email','roles'], ['password:min:8|max:20']);
 
         if ($params['result']) {
-            $user = $this->user->find($params['datas']['id']);
+            $admin = $this->admin->find($params['datas']['id']);
 
             if (empty($admin)) {
                 return $this->api->error('admin not found');
             }
 
-            if(isset($params['datas']['password'])){
-                //$params['datas']['password']=    
+            if (isset($params['datas']['password'])) {
+  
+                $params['datas']['password'] = $this->auth->secretPassword($params['datas']['password']);
             }
 
-            if($params['datas']['email']==$user->email){
-                $user->where('id',$params['datas']['id'])->update($params['datas']);
-                return $this->api->success('update admin success');                
+            if ($params['datas']['email'] == $admin->email) {
+                $admin->where('id', $params['datas']['id'])->update($params['datas']);
+                return $this->api->success('update admin success');
             }
-            else{
-                if(!empty($this->user->findEmail($params['datas']['email']))){
+            else {
+                if (!empty($this->admin->findEmail($params['datas']['email']))) {
                     return $this->api->error('email is exist');
                 }
-                $user->where('id',$params['datas']['id'])->update($params['datas']);
-                return $this->api->success('update admin success');                
+                $admin->where('id', $params['datas']['id'])->update($params['datas']);
+                return $this->api->success('update admin success');
             }
 
-        } else {
+        }
+        else {
             return $params;
         }
     }
@@ -114,14 +122,21 @@ class AdminController extends Controller
     {
   
         //必须参数[name:账号名称，parentid:上级账号ID，description:账号描述],可选参数[permissions:权限id串（1,2,3,4...）]
-        $params = $this->api->getParams(['name', 'parentid:integer', 'description:string|max:100'], ['permissions:string']);
+        $params = $this->api->getParams(['name', 'email', 'password:min:8|max:20','roles']);
 
         if ($params['result']) {
-            $id = $this->admin->insertGetId($params['datas']);
 
-            return $this->api->insert_message($id, RetrunMessage::INSERT_SUCCESS, RetrunMessage::INSERT_ERROR_SQL_SERVE);
-        } else {
-            return $param;
+            $result = $this->auth->signup($params['datas']);
+
+            if ($result == true) {
+                return $this->api->insert_message($this->auth->info()->id, 'admin add success');
+            }
+            else {
+                return $this->api->error('admin has exist');
+            }
+        }
+        else {
+            return $params;
         }
     }
 }

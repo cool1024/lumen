@@ -53,6 +53,6 @@ class User extends Model
     public static $signs=[
         'primary'=> ['email'],
         'secondary'=>['name','password'],
-        'secert'=>['password']
+        'secret'=>['password']
      ];
 }

@@ -99,6 +99,23 @@
             "url": "/info",
             "method": "get",
             "inputs": []
+        }, {
+            "title": "获取用户权限",
+            "description": "用户登入成功后，通过此接口获取自身权限信息",
+            "url": "/permission",
+            "method": "get",
+            "inputs": []
+        },
+        {
+            "title": "判断用户是否具有某个权限",
+            "description": "用户登入成功后，通过此接口判断是否具有某项权限",
+            "url": "/has/permission",
+            "method": "get",
+            "inputs": [{
+                "name": "key",
+                "description": "权限的关键词"
+            }]
         }
+
     ]
 }

@@ -13,15 +13,15 @@ use App\Api\Models\Permission;
 
 trait PermissionTrait
 {
+    //判断用户是否具有指定权限
     public function hasPermission($key)
     {
-        // $permission
-
-        //使用了角色
-        if (isset($this->useRoles) && $this->useRoles == true) {
-
+        $id = Permission::where('key', $key)->value('id');
+        if ($id > 0) {
+            $permissions=$this->userAllPermission();
+            return in_array($id, $permissions);
         }
-
+        return false;
     }
 
     //获取用户全部权限
@@ -30,12 +30,17 @@ trait PermissionTrait
         $permissions = [];
 
         if (isset($this->useRoles) && $this->useRoles == true) {
-            $roles = $this->roles;
+            $roles = $this->roles();
+            foreach ($roles as $role) {
+                $permission = $role->permissions ? explode(',', $role->permissions) : [];
+                $permissions = array_merge($permissions, $permission);
+            }
+
         }
         if (isset($this->useGroups) && $this->useGroups == true) {
-            $groups = $this->groups;
+            $groups = $this->groups();
         }
 
-        return $permissions;
+        return array_unique($permission);
     }
 }

@@ -21,7 +21,7 @@ trait RoleTrait
     {
 
         if (!isset($this->roleArray)) {
-            return isset($this->user->roles)?$roles=Role::whereIn('id', explode(',', $this->user->roles))->get():[];
+            return isset($this->roles)?$roles=Role::whereIn('id', explode(',', $this->roles))->get():[];
         } else {
             return $this->roleArray;
         }
@@ -30,7 +30,7 @@ trait RoleTrait
     public function role()
     {
         $roles=$this->roles();
-        return !empty($roles)?$role[0]:null;
+        return !empty($roles)?$roles[0]:null;
     }
 
 }

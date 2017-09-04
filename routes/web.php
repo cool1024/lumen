@@ -45,7 +45,7 @@ $app->post('/login', function (ApiContract $api, AuthContract $auth) {
 });
 
 $app->post('/signup', function (ApiContract $api, AuthContract $auth) {
-    $params = $api->getParams(['email:email', 'name:min:4|max:16', 'password:min:6|max:12']);
+    $params = $api->getParams(['email:email', 'name:min:4|max:16', 'password:min:8|max:12']);
     if ($params['result']) {
         $result = $auth->signup($params['datas']);
         return $result ? $api->success('注册成功~') : $api->error('用户已经被注册~');
@@ -69,8 +69,12 @@ $app->post('/check', function (ApiContract $api, AuthContract $auth) {
     }
 });
 
+$app->get('/permission', ['middleware'=>'auth', function (AuthContract $auth) {
+    return $auth->hasPermission('permission-manager');
+}]);
+
 $app->get('/info', ['middleware'=>'auth', function (AuthContract $auth) {
-    return $auth->info();
+    return $auth->info()->userAllPermission();
 }]);
 
 //```````````````````````````````````````UnionPay````````````````````````````````````````//
