@@ -11,6 +11,18 @@ $app->get('/signout', function (ApiContract $api, AuthContract $auth) {
     return $api->success('登出成功~');
 });
 
+//change password
+$app->post('/password', function (ApiContract $api, AuthContract $auth) {
+    $param=$api->getParam('password:min:8|max:20');
+    if($param['result']){
+        $auth->updatePassword($param['datas']['password']);
+        return $api->success('update success');
+    }
+    else{
+        return $param;
+    }
+});
+
 //获取当前登入用户信息（API默认用户信息获取接口）
 $app->get('/info', function (ApiContract $api, AuthContract $auth) {
     $info = $auth->info();
@@ -33,8 +45,7 @@ $app->get('/has/permission', function (AuthContract $auth, ApiContract $api) {
     $param = $api->getParam('key');
     if ($param['result']) {
         return $auth->hasPermission($param['datas']['key']);
-    }
-    else {
+    } else {
         return $param;
     }
 });

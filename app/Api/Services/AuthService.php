@@ -104,4 +104,11 @@ class AuthService extends Facade implements AuthContract
     {
         return $this->user->userAllPermission();
     }
+
+    public function updatePassword($password)
+    {
+        $this->user->password= Crypt::encrypt($password);
+
+        $this->user->save();
+    }
 }
