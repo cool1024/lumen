@@ -23,8 +23,8 @@ trait DataGroupTrait
      */
     public function groupData($wheres = [])
     {
-        $groupKey=$this->groupConfig['groupKey'];
-        $groupParams=$this->groupConfig['groupParams'];
+        $groupKey = $this->groupConfig['groupKey'];
+        $groupParams = $this->groupConfig['groupParams'];
 
         $selects = [$groupKey];
 
@@ -32,17 +32,19 @@ trait DataGroupTrait
             $selects[] = DB::raw("group_concat($value) as _$value");
         }
 
-        $sql= $this->select($selects)->groupBy($groupKey);
+        $sql = $this->select($selects)->groupBy($groupKey);
 
         if (!empty($wheres)) {
             foreach ($wheres as $where) {
-                $op=$where['op'];
-                if (count($where['params'])==1) {
-                    $sql=$sql->$op($where['params'][0]);
-                } elseif (count($where['params'])==2) {
-                    $sql=$sql->$op($where['params'][0], $where['params'][1]);
-                } elseif (count($where['params'])==3) {
-                    $sql=$sql->$op($where['params'][0], $where['params'][1], $where['params'][2]);
+                $op = $where['op'];
+                if (count($where['params']) == 1) {
+                    $sql = $sql->$op($where['params'][0]);
+                }
+                elseif (count($where['params']) == 2) {
+                    $sql = $sql->$op($where['params'][0], $where['params'][1]);
+                }
+                elseif (count($where['params']) == 3) {
+                    $sql = $sql->$op($where['params'][0], $where['params'][1], $where['params'][2]);
                 }
             }
         }
@@ -56,18 +58,18 @@ trait DataGroupTrait
             }
         }
 
-        $result=array();
+        $result = array();
 
         foreach ($groups as $value) {
-            $rows=array();
-            for ($i=0; $i<count($value[$groupParams[0]]); $i++) {
-                $row=[$groupKey=>$value[$groupKey]];
+            $rows = array();
+            for ($i = 0; $i < count($value[$groupParams[0]]); $i++) {
+                $row = [$groupKey => $value[$groupKey]];
                 foreach ($groupParams as $params) {
-                    $row[$params]=$value[$params][$i];
+                    $row[$params] = $value[$params][$i];
                 }
-                $rows[]=$row;
+                $rows[] = $row;
             }
-            $result[]=[$groupKey=>$value[$groupKey],'groups'=>$rows];
+            $result[] = [$groupKey => $value[$groupKey], 'groups' => $rows];
         }
 
         return $result;

@@ -61,12 +61,18 @@ trait AuthTrait
         $password = $loginParams[$secret];
         unset($loginParams[$secret]);
 
-        $user = User::where($loginParams)->select('id',"$secret as _$secret")->first()->toArray();
+        $user = User::where($loginParams)->select('id', "$secret as _$secret")->first();
 
         $result = !empty($user);
 
-        if ($result && self::checkPassword($password, $user["_$secret"])) {
-            $this->user = User::find($user['id']);
+        if ($result) {
+            $user = $user->toArray();
+            if (self::checkPassword($password, $user["_$secret"])) {
+                $this->user = User::find($user['id']);
+            }
+            else {
+                $result = false;
+            }
         }
         else {
             $result = false;

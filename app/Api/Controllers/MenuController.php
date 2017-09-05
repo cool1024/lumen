@@ -50,7 +50,7 @@ class MenuController extends Controller
 
         //desc sort  groups data by level
         foreach ($groups as $key => $value) {
-            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_DESC);
+            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_ASC);
         }
 
         //按parentid分组获取数据
@@ -62,8 +62,11 @@ class MenuController extends Controller
         $params = $this->api->getParams(['title', 'icon', 'url', 'parentid:integer', 'permissionid:integer']);
 
         if ($params['result']) {
+            $max = $this->menu->where('parentid', $params['datas']['parentid'])->max('level');
+            $params['datas']['level'] = empty($max) ? 1 : ++$max;
             return $this->api->insert_message($this->menu->insertGetId($params['datas'], ReturnMessage::INSERT_SUCCESS, ReturnMessage::INSERT_ERROR_SQL_SERVE_ERROR));
-        } else {
+        }
+        else {
             return $params;
         }
     }
@@ -84,7 +87,8 @@ class MenuController extends Controller
             $result = $this->menu->destroy($menuid);
 
             return $this->api->delete_message($result, ReturnMessage::DELETE_SUCCESS, ReturnMessage::DELETE_ERROR_NOTFOUND);
-        } else {
+        }
+        else {
             return $param;
         }
     }
@@ -106,7 +110,8 @@ class MenuController extends Controller
             $this->menu->where('id', $menuid)->update($params['datas']);
 
             return $this->api->success(ReturnMessage::UPDATE_SUCCESS);
-        } else {
+        }
+        else {
             return $params;
         }
     }
@@ -116,9 +121,10 @@ class MenuController extends Controller
         $param = $this->api->getParams(['ids']);
         if ($param['result']) {
             $ids = explode(',', $param['datas']['ids']);
-            $result = $this->menu->rsort($ids, 'level');
+            $result = $this->menu->sort($ids, 'level');
             return $result ? $this->api->success(ReturnMessage::SORT_SUCCESS) : $this->api->error(ReturnMessage::SORT_ERROR_PARAMS);
-        } else {
+        }
+        else {
             return $param;
         }
     }
@@ -130,17 +136,17 @@ class MenuController extends Controller
      */
     function getAdminMenu()
     {
-        $permissions=$this->auth->getPermissions();
+        $permissions = $this->auth->getPermissions();
 
-        $permissions[]=0;
+        $permissions[] = 0;
 
-        $groups=$this->menu->groupData([
-            ['op'=>'whereIn','params'=>['permission',$permissions]]
+        $groups = $this->menu->groupData([
+            ['op' => 'whereIn', 'params' => ['permissionid', $permissions]]
         ]);
 
         //desc sort  groups data by level
         foreach ($groups as $key => $value) {
-            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_DESC);
+            $groups[$key]['groups'] = $this->array_sort_params($value['groups'], 'level', SORT_ASC);
         }
 
         //按parentid分组获取数据

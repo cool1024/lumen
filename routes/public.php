@@ -30,7 +30,17 @@ $app->post('/check', function (ApiContract $api, AuthContract $auth) {
     $params = $api->getParams(['ng-params-one', 'ng-params-two'], [], ['ng-params-one' => 'secret', 'ng-params-two' => 'token']);
     if ($params['result']) {
         $result = $auth->check($params['datas']['secret'], $params['datas']['token']);
-        return $result ? $api->success('check success') : $api->error('check false');
+        if ($result) {
+            $info = $auth->info();
+            $role = $info->role();
+            if (isset($role) && !empty($role)) {
+                $info->role = $role->name;
+            }
+            return $api->datas($info);
+        }
+        else {
+            return $api->error('check false');
+        }
     }
     else {
         return $params;

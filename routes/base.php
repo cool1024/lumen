@@ -12,8 +12,13 @@ $app->get('/signout', function (ApiContract $api, AuthContract $auth) {
 });
 
 //获取当前登入用户信息（API默认用户信息获取接口）
-$app->get('/info', function (AuthContract $auth) {
-    return $auth->info();
+$app->get('/info', function (ApiContract $api, AuthContract $auth) {
+    $info = $auth->info();
+    $role = $info->role();
+    if (isset($role) && !empty($role)) {
+        $info->role = $role->name;
+    }
+    return $api->datas($info);
 });
 
 $app->get('/menus', 'MenuController@getAdminMenu');
@@ -28,7 +33,8 @@ $app->get('/has/permission', function (AuthContract $auth, ApiContract $api) {
     $param = $api->getParam('key');
     if ($param['result']) {
         return $auth->hasPermission($param['datas']['key']);
-    } else {
+    }
+    else {
         return $param;
     }
 });
