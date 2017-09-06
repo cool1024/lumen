@@ -44,7 +44,7 @@ $app->get('/permission', function (AuthContract $auth) {
 $app->get('/has/permission', function (AuthContract $auth, ApiContract $api) {
     $param = $api->getParam('key');
     if ($param['result']) {
-        return $auth->hasPermission($param['datas']['key']);
+        return $auth->hasPermission($param['datas']['key'])?$api->success():$api->error();
     } else {
         return $param;
     }

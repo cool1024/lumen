@@ -17,7 +17,7 @@ $app->post('/login', function (ApiContract $api, AuthContract $auth) {
             return $api->datas($auth->updateToken());
         }
         else {
-            return $api->error("email or password wrong");
+            return $api->error("账户或密码错误");
         }
     }
     else {
@@ -39,7 +39,7 @@ $app->post('/check', function (ApiContract $api, AuthContract $auth) {
             return $api->datas($info);
         }
         else {
-            return $api->error('check false');
+            return $api->error('登入令牌校错误，请重新登入');
         }
     }
     else {
