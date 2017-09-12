@@ -33,7 +33,7 @@ class AuthMiddleware
         if (isset($secret, $token) == false) {
             return response($this->api->error('token undefiend'), 401);
         }
-        
+
         //校验权限令牌
         if ($this->auth->check($secret, $token) == false) {
             return response($this->api->error('token error'), 401);

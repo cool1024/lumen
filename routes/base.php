@@ -11,7 +11,7 @@ $app->get('/signout', function (ApiContract $api, AuthContract $auth) {
     return $api->success('登出成功~');
 });
 
-//change password
+//修改密码接口（API默认修改密码接口）
 $app->post('/password', function (ApiContract $api, AuthContract $auth) {
     $param=$api->getParam('password:min:8|max:20');
     if($param['result']){

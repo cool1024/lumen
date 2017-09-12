@@ -41,6 +41,6 @@ trait PermissionTrait
             $groups = $this->groups();
         }
 
-        return array_unique($permission);
+        return array_unique($permissions);
     }
 }

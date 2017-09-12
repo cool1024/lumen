@@ -73,3 +73,30 @@ $app->post('/signup', function (ApiContract $api, AuthContract $auth) {
         return $params;
     }
 });
+
+//e支付测试
+$app->get('/test/pay', function (SdkContract $sdk) {
+    $epay = $sdk->get('epay');
+
+    $order = [
+        'ordersn' => date('YmdHis'),//唯一订单号
+        'amount' => 1000,//订单价格（分）
+        'merID' => '1503EE20175021',//商户ID
+        'merAcct' => '1503214909000050467',//商户收账银行卡号
+        'merURL' => 'http:://www.baidu.com',//异步通知地址
+        'goodsID' => 'No.450',//商品编号
+        'goodsName' => '测试商品',//商品名称
+        'goodsNum' => '1',//商品数量
+        'merHint' => 'NULL',//商城提示信息
+    ];
+    return $epay->getPayOrder($order);//getHtmlPayOrder($order);
+});
+
+//e支付异步通知测试
+$app->post('/test/notify', function () {
+    return response(500,phpinfo());
+    //$epay = $sdk->get('epay');
+    //dd($epay->checkNotifyMessage());
+    //验证成功返回同步跳转地址
+    return "http://www.baidu.com";
+});

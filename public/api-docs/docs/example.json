@@ -122,7 +122,17 @@
                 "name": "key",
                 "description": "权限的关键词"
             }]
+        },
+        {
+            "title": "工行测试",
+            "description": "",
+            "url": "/test/notify",
+            "method": "post",
+            "inputs": [
+                { "name": "merVAR", "description": "..." },
+                { "name": "notifyData", "description": "..." },
+                { "name": "signMsg", "description": "..." }
+            ]
         }
-
     ]
 }
