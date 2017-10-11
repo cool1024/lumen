@@ -13,7 +13,7 @@ class FileService implements FileContract
 
     public function __construct()
     {
-        $this->file_path = $_SERVER['DOCUMENT_ROOT'];
+        $this->file_path = $_SERVER['DOCUMENT_ROOT'] . '/';
     }
 
     //修改文件保存路径
@@ -29,7 +29,7 @@ class FileService implements FileContract
             $file = self::getInputFile($name);
             $filename = sprintf("%s.%s", self::getFileNameByMd5Uniqid(), $file->getClientOriginalExtension());
             $file->move($this->file_path . $path, $filename);
-            return sprintf("%s/%s", $this->file_path . $path, $filename);
+            return sprintf("%s/%s", $path, $filename);
         }
         else {
             return "file upload error";
@@ -46,7 +46,7 @@ class FileService implements FileContract
             if (self::fileIsImage($file)) {
                 $filename = sprintf("%s.%s", self::getFileNameByMd5Uniqid(), $file->getClientOriginalExtension());
                 $file->move($this->file_path . $path, $filename);
-                return sprintf("%s/%s", $this->file_path . $path, $filename);
+                return sprintf("%s/%s", $path, $filename);
             }
             else {
                 return "image type error";
@@ -67,7 +67,7 @@ class FileService implements FileContract
             if (self::fileIsImage($file)) {
                 $filename = sprintf("%s.%s", self::getFileNameByMd5($file), $file->getClientOriginalExtension());
                 $file->move($this->file_path . $path, $filename);
-                return sprintf("%s/%s", $this->file_path . $path, $filename);
+                return sprintf("%s/%s", $path, $filename);
             }
             else {
                 return "image type error";
@@ -86,7 +86,7 @@ class FileService implements FileContract
             $file = self::getInputFile($name);
             $filename = sprintf("%s.%s", self::getFileNameByMd5($file), $file->getClientOriginalExtension());
             $file->move($this->file_path . $path, $filename);
-            return sprintf("%s/%s", $this->file_path . $path, $filename);
+            return sprintf("%s/%s", $path, $filename);
         }
         else {
             return "image upload error";
@@ -96,7 +96,8 @@ class FileService implements FileContract
     //根据文件url删除文件
     public function removeFile($url)
     {
-        $filename = "$this->file_path/$url";
+        $filename = "$this->file_path\\$url";
+        // dd($filename);
         if (file_exists($filename)) {
             unlink($filename);
             return true;

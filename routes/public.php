@@ -4,7 +4,7 @@ use App\Api\Contracts\AuthContract;
 
 //首页
 $app->get('/', function () use ($app) {
-    return redirect('ng');
+    return redirect('api-docs');
     //return $app->version();
 
 });

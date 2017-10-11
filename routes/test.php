@@ -44,41 +44,7 @@ $app->delete('/upload/remove', function (ApiContract $api, FileContract $file) {
     }
 });
 
-//富文本文件上传
+//富文本编辑器图片上传
 $app->post('/upload/editor', function (ApiContract $api, FileContract $file) {
     return ['link' => "http://" . $_SERVER['SERVER_ADDR'] . "/" . $file->saveImageTo('file', 'upload')];
-});
-
-//e支付测试
-$app->get('/test/pay', function (SdkContract $sdk) {
-
-    $epay = $sdk->get('epay');
-
-    $order = [
-        'ordersn' => date('YmdHis'),//唯一订单号
-        'amount' => 1000,//订单价格（分）
-        'merID' => '1503EE20175021',//商户ID
-        'merAcct' => '1503214909000050467',//商户收账银行卡号
-        'merURL' => 'http://www.baidu.com',//异步通知地址
-        'goodsID' => 'No.450',//商品编号
-        'goodsName' => '测试商品',//商品名称
-        'goodsNum' => '1',//商品数量
-        'merHint' => 'NULL',//商城提示信息
-    ];
-    return $epay->getHtmlPayOrder($order);//getHtmlPayOrder($order);
-
-
-});
-
-//e支付异步通知测试
-$app->post('/test/notify', function (Request $request) {
-    file_put_contents("/var/www/lumen/public/log.txt", json_encode($request->all()), FILE_APPEND);
-    return "http://ng.cool1024.com/ng/home";
-    // $epay = $sdk->get('epay');
-    // $result=$epay->checkNotifyMessage();
-    // return response($result,200);
-    // //验证成功返回同步跳转地址
-    // return "http://www.baidu.com";
-
-
 });
