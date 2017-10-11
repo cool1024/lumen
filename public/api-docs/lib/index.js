@@ -130,11 +130,11 @@ function getFormDom(title, description, parentid, index, inputs, method, url) {
     divDom.innerHTML = `
                 <div class="panel-heading" style="background-color:white;" role="tab">
                     <h4 class="panel-title">
-                        <a role="button" data-toggle="collapse" data-parent="#${parentid}" href="#collapse-${parentid}-${index}" aria-expanded="true">
+                        <div role="button" data-toggle="collapse" data-parent="#${parentid}" href="#collapse-${parentid}-${index}" aria-expanded="true">
                             ${span}
                             ${url}
                             <span class="pull-right text-primary">${title}<span>
-                        </a>
+                        </div>
                     </h4>
                 </div>
                 <div id="collapse-${parentid}-${index}" class="panel-collapse collapse" role="tabpanel">
