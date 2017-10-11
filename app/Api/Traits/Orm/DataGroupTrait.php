@@ -19,7 +19,6 @@ trait DataGroupTrait
      * @author xiaojian
      * @param  none
      * @return array[..[grounpid,groupdata]..]
-     * @todo   特殊查询需要定制
      */
     public function groupData($wheres = [])
     {

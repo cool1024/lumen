@@ -6,6 +6,7 @@
     ],
     "docs": [
         "example.json",
+        "auth.json",
         "role.json",
         "menu.json",
         "permission.json"

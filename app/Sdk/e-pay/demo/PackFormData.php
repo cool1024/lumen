@@ -8,7 +8,7 @@ require 'PackTranData.php';
 class PackFormData {
 	
 	/**
-	 * Éú³ÉÇëÇóform±íµ¥
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½formï¿½ï¿½
 	 * @param xmlPath
 	 
 	 * @param orderEntity
@@ -35,11 +35,10 @@ class PackFormData {
 		}else{
 			$formData = NULL;
 		}
-
 		return $formData;
 	}
 	/**
-	 * Éú³É11½Ó¿ÚÇëÇóform±íµ¥
+	 * ï¿½ï¿½ï¿½ï¿½11ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½formï¿½ï¿½
 	 * @param xmlPath
 	 * @param orderEntity
 	 * @return 

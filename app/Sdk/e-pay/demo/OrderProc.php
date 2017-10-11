@@ -5,7 +5,7 @@ require 'PackFormData.php';
 
 class OrderProc {
 
-        // ¶ÁÈ¡Ö¤Êé
+        // ï¿½ï¿½È¡Ö¤ï¿½ï¿½
         private function readCert($filePath) {
                 if ($filePath==NULL) {
 			echo "filepath is null".PHP_EOL;
@@ -14,7 +14,7 @@ class OrderProc {
                 $file=fopen($filePath,"rb");
                 if($file==NULL)
                 {
-                        echo "´ò¿ªÖ¤ÊéÊ§°Ü!".PHP_EOL;
+                        echo "ï¿½ï¿½Ö¤ï¿½ï¿½Ê§ï¿½ï¿½!".PHP_EOL;
                         return NULL;
                 }
 
@@ -43,7 +43,7 @@ class OrderProc {
 
 
 	/**
-	 * ¸ù¾ÝÉÌ»§ÉÏËÍ¶©µ¥ÐÅÏ¢£¬×éÖ¯Ö§¸¶ÇëÇó±íµ¥
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ö¯Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param orderEntity
 	 * @return FormData
@@ -52,11 +52,10 @@ class OrderProc {
 	public function orderProcess($orderEntity){		
 //		$orderEntity->perpareData();
 		$this->getKeyData($orderEntity);
-
 		if ((PackTranData::verifyOrderData($orderEntity))==0) {
 			$formData = PackFormData::createFormData($orderEntity);
 		} else {
-			echo "Éú³É¶©µ¥Ö§¸¶ÇëÇó±¨ÎÄÊ§°Ü£¡".PHP_EOL;
+			echo "ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½".PHP_EOL;
 		}
 		return $formData;
 	}
@@ -68,7 +67,7 @@ class OrderProc {
 		if ((PackTranData::verifyOrderData11($orderEntity))==0) {
 			$formData = PackFormData::createFormData11($orderEntity);
 		} else {
-			echo "Éú³É¶©µ¥Ö§¸¶ÇëÇó±¨ÎÄÊ§°Ü£¡".PHP_EOL;
+			echo "ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½".PHP_EOL;
 		}
 		return $formData;
 	}

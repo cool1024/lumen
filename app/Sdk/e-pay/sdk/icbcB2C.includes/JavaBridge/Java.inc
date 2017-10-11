@@ -120,7 +120,7 @@ define("JAVA_RECV_SIZE", 8192);
 if(!defined("JAVA_HOSTS")) {
 if(!java_defineHostFromInitialQuery($JAVA_BASE)) {
 if ($ini=get_cfg_var("java.hosts")) define("JAVA_HOSTS", $ini);
-else define("JAVA_HOSTS", "127.0.0.1:8080"); 
+else define("JAVA_HOSTS", "127.0.0.1:8081"); 
 }
 }
 if(!defined("JAVA_SERVLET")) {
@@ -1033,7 +1033,7 @@ $errno = null; $errstr = null;
 $socket = JAVA_PERSISTENT_SERVLET_CONNECTIONS ?
 pfsockopen("{$this->ssl}{$this->host}", $this->port, $errno, $errstr, 30) :
 fsockopen("{$this->ssl}{$this->host}", $this->port, $errno, $errstr, 30);
-if (!$socket) throw new java_ConnectException("Could not connect to the J2EE server {$this->ssl}{$this->host}:{$this->port}. Please start it, for example with the command: \"java -jar JavaBridge.jar SERVLET:8080 3 JavaBridge.log\" or, if the back end has been compiled to native code, with \"modules/java SERVLET:8080 3 JavaBridge.log\". Error message: $errstr ($errno)\n");
+if (!$socket) throw new java_ConnectException("Could not connect to the J2EE server {$this->ssl}{$this->host}:{$this->port}. Please start it, for example with the command: \"java -jar JavaBridge.jar SERVLET:8081 3 JavaBridge.log\" or, if the back end has been compiled to native code, with \"modules/java SERVLET:8081 3 JavaBridge.log\". Error message: $errstr ($errno)\n");
 stream_set_timeout($socket, -1);
 return $socket;
 }
@@ -1145,7 +1145,7 @@ else
 $port = substr($host, $idx+1);
 $host = substr($host, 0, $idx);
 } else {
-$port = "8080";
+$port = "8081";
 }
 if($webCtx) $webCtx = substr($s, $webCtx+1);
 $this->webContext = $webCtx;

@@ -2,23 +2,10 @@
 
 require 'OrderInfo.php';
 
-/*加载PHP签名模块，详细参加部署文档*/
-if (!extension_loaded('infosec'))
-{
-	if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')
-	{
-		dl('php_infosec.dll');
-	}
-else
-	{
-		dl('infosec.so');
-	}
-}
-
 class EbizSign {
 	
 	/**
-	 * 证书公钥数据MerCert处理
+	 * 证锟介公钥锟斤拷锟斤拷MerCert锟斤拷锟斤拷
 	 * @param orderEntity
 	 * @return
 	 */
@@ -29,7 +16,7 @@ class EbizSign {
 
 		if($CertBase64==-1)
 		{
-			echo "证书数据加密失败".PHP_EOL;
+			echo "证锟斤拷锟斤拷锟捷硷拷锟斤拷失锟斤拷".PHP_EOL;
 			return NULL;
 		}
 		$CertBase64value=current($CertBase64);
@@ -37,7 +24,7 @@ class EbizSign {
 	}
 	
 	/**
-	 * 生成订单签名数据MerSignMsg
+	 * 锟斤拷锟缴讹拷锟斤拷签锟斤拷锟斤拷锟斤拷MerSignMsg
 	 * @param orderEntity
 	 * @return
 	 */
@@ -55,7 +42,7 @@ class EbizSign {
 	
 	
 	/**
-	 * 证书公钥数据MerCert处理
+	 * 证锟介公钥锟斤拷锟斤拷MerCert锟斤拷锟斤拷
 	 * @param orderEntity
 	 * @return
 	 */
@@ -66,7 +53,7 @@ class EbizSign {
 		return $CertBase64value;
 	}
 	/**
-	 * 生成订单签名数据MerSignMsg
+	 * 锟斤拷锟缴讹拷锟斤拷签锟斤拷锟斤拷锟斤拷MerSignMsg
 	 * @param orderEntity
 	 * @return
 	 */

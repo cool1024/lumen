@@ -1,8 +1,8 @@
 <?php 
 	
-	require_once __DIR__ . '\..\icbcB2C.model\B2cConfig.php';
-	require_once __DIR__ . '\..\icbcB2C.model\FormData.php';
-	require_once __DIR__ . '\..\icbcB2C.model\tranData.php';
+	require_once __DIR__ . '/../icbcB2C.model/B2cConfig.php';
+	require_once __DIR__ . '/../icbcB2C.model/FormData.php';
+	require_once __DIR__ . '/../icbcB2C.model/TranData.php';
 
 	/*
 	 * <p>icbcB2C֧���ӿ�</p>

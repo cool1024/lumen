@@ -307,8 +307,15 @@ function syntaxHighlight(json) {
 
 function showError(text) {
     //$('#error-pad').html(text)
-    document.getElementById('error-pad').contentWindow.document.body.innerHTML = text;
-    $('#myModal-2').modal('show')
+    try {
+        var text = JSON.parse(text)
+        if (!!text) {
+            showSuccess(text)
+        }
+    } catch (e) {
+        document.getElementById('error-pad').contentWindow.document.body.innerHTML = text;
+        $('#myModal-2').modal('show')
+    }
 }
 
 function showSuccess(json) {

@@ -1,14 +1,14 @@
 <?php 
-require_once __DIR__ . '\..\icbcB2C.common\IcbcB2CUtil.php';
-require_once __DIR__ . '\..\icbcB2C.includes\icbcB2C.errorInfo\ErrBean.php';
-require_once __DIR__ . '\..\icbcB2C.model\B2cConfig.php';
-require_once __DIR__ . '\..\icbcB2C.model\FormData.php';
-require_once __DIR__ . '\..\icbcB2C.model\MerReqData.php';
-require_once __DIR__ . '\..\icbcB2C.model\MerResData.php';
-require_once __DIR__ . '\..\icbcB2C.model\OrderInfo.php';
-require_once __DIR__ . '\..\icbcB2C.model\tranData.php';
-require_once __DIR__ . '\..\icbcB2C.pay\IcbcB2CPay.php';
-require_once __DIR__ . '\..\icbcB2C.includes\javaBridge.php';
+require_once __DIR__ . '/../icbcB2C.common/IcbcB2CUtil.php';
+require_once __DIR__ . '/../icbcB2C.includes/icbcB2C.errorInfo/ErrBean.php';
+require_once __DIR__ . '/../icbcB2C.model/B2cConfig.php';
+require_once __DIR__ . '/../icbcB2C.model/FormData.php';
+require_once __DIR__ . '/../icbcB2C.model/MerReqData.php';
+require_once __DIR__ . '/../icbcB2C.model/MerResData.php';
+require_once __DIR__ . '/../icbcB2C.model/OrderInfo.php';
+require_once __DIR__ . '/../icbcB2C.model/TranData.php';
+require_once __DIR__ . '/../icbcB2C.pay/IcbcB2CPay.php';
+require_once __DIR__ . '/../icbcB2C.includes/javaBridge.php';
 
 class IcbcB2CPayImpl implements IcbcB2CPay
 {

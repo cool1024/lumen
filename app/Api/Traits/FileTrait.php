@@ -13,44 +13,37 @@ use Illuminate\Support\Facades\Request;
 
 trait FileTrait
 {
-    protected static $file_path="";
 
-    public function saveTo($name, $path)
+    //获取文件的MD5值
+    public function getFileNameByMd5($file)
     {
-        if (self::fileIsReady($name)) {
-            $file=Request::file($name);               
-            $filename=sprintf("%s.%s",self::getFileNameByMd5($file),$file->getClientOriginalExtension());
-            $file->move(self::$file_path.$path,$filename);
-            return sprintf("%s/%s",self::$file_path.$path,$filename);
-        } else {
-            return "file upload error";
-        }
-    }
-
-    public function saveImageTo($name, $path)
-    {
-        if (self::fileIsReady($name)) {
-            $file=Request::file($name);
-            $regx='/^image/';
-            if (preg_match($regx, $file->getMimeType())) {
-                $filename=sprintf("%s.%s",self::getFileNameByMd5($file),$file->getClientOriginalExtension());
-                $file->move(self::$file_path.$path,$filename);
-                return sprintf("%s/%s",self::$file_path.$path,$filename);
-            } else {
-                return "image type error";
-            }
-        } else {
-            return "image upload error";
-        }
-    }
-
-    public function getFileNameByMd5($file){
-        $filename=$file->getRealPath();
+        $filename = $file->getRealPath();
         return md5_file($filename);
     }
 
+    //获取文件文件的随机值(uniqid)
+    public function getFileNameByMd5Uniqid()
+    {
+        return md5(uniqid());
+    }
+
+    //获取$request中的指定文件
+    public function getInputFile($name)
+    {
+        return Request::file($name);
+    }
+
+    //判断文件是否上传正确
     public function fileIsReady($name)
     {
-        return Request::hasFile($name)&&Request::file($name)->isValid();
+        return Request::hasFile($name) && Request::file($name)->isValid();
     }
+
+    //判断文件是否是图片
+    public function fileIsImage($file)
+    {
+        $regx = '/^image/';
+        return preg_match($regx, $file->getMimeType());
+    }
+
 }

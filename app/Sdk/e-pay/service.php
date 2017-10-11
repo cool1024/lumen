@@ -1,8 +1,8 @@
 <?php
-// require_once ("sdk/icbcB2C.pay/IcbcB2CPayImpl.php");
-// require_once ('sdk/icbcB2C.includes/javaBridge.php');
-// require_once ('sdk/icbcB2C.includes/getBytes.php');
-require_once ('demo/OrderProc.php');
+require_once ("sdk/icbcB2C.pay/IcbcB2CPayImpl.php");
+require_once ('sdk/icbcB2C.includes/javaBridge.php');
+require_once ('sdk/icbcB2C.includes/getBytes.php');
+// require_once ('demo/OrderProc.php');
 
 class EPayService
 {
@@ -26,7 +26,7 @@ class EPayService
 
         $custom = [
             'verifyJoinFlag' => '0',//手机银行订单必输0
-            'Language' => 'ZH_CN'//语言
+            'Language' => 'zh_CN'//语言
         ];
 
         $message = [
@@ -61,12 +61,12 @@ class EPayService
         //API配置
         $orderentity->set("USER_CRTPATH", $b2cConfig['userCrtPath']);//公钥数据
         $orderentity->set("USER_KEYPATH", $b2cConfig['userKeyPath']);//私钥数据
-        $orderentity->set("USER_KEYPASSWORD", $b2cConfig['userKeyPassword']);//证书密码
+        $orderentity->set("USER_KEYPASSWORD", $b2cConfig['password']);//证书密码
         $orderentity->set("API_QUERY_HOST", 'https://mywap2.icbc.com.cn/ICBCWAPBank/servlet/ICBCWAPEBizServlet');//请求地址
         $orderentity->set("API_QUERY_HOST_PORT", '80');//请求端口
 
         //订单配置
-        $orderentity->set("ORDER_DATE",$orderInfo['orderDate']);//订单日期，格式yyyyMMddHHmmss
+        $orderentity->set("ORDER_DATE", $orderInfo['orderDate']);//订单日期，格式yyyyMMddHHmmss
         $orderentity->set("ORDER_ID", $orderInfo['orderid']);//订单号, 30位，数字
         $orderentity->set("AMOUNT", $orderInfo['amount']);//订单金额
         $orderentity->set("INSTALLMENT_TIMES", $orderInfo['installmentTimes']);//分期期数
@@ -98,7 +98,7 @@ class EPayService
         $orderproc = new OrderProc;
         $formData = $orderproc->orderProcess($orderentity);
         
-        dd($formData);
+        //dd($formData);
         /*
         echo $formData->getInterfaceName();
         echo PHP_EOL;
@@ -200,8 +200,8 @@ class EPayService
 
         $payImpl = new IcbcB2CPayImpl();
         $b2cConfig = [
-            'userCrtPath' => 'D:\SERVER\nginx\www\icbcB2C4PHP\bankKey\dckj.cer',
-            'userKeyPath' => 'D:\SERVER\nginx\www\icbcB2C4PHP\bankKey\dckj.key',
+            'userCrtPath' => __DIR__.'\sdk\key\dckj.cer',
+            'userKeyPath' =>  __DIR__.'\sdk\key\dckj.key',
             'password' => 'Abcd1234',
             'interfaceName' => $interfaceName,
             'interfaceVersion' => $interfaceVersion
@@ -235,33 +235,32 @@ class EPayService
         $notifyData = $_POST["notifyData"];
         $signMsg = $_POST["signMsg"];
 
-        if (!isset($merVAR, $notifyData, $signMsg) || empty($merVAR) || empty($notifyData) || empty($signMsg)) {
+        if (!isset($notifyData, $signMsg) || empty($notifyData) || empty($signMsg)) {
             return "params lost";
         }
 
         $ReturnValue = new Java("cn.com.infosec.icbc.ReturnValue");
         $publicCrtPath = "E:/Git/lumen/app/Sdk/e-pay/sdk/key/admin.crt";
-        //$bcert = ReadBytesFile::readFile($publicCrtPath);
 
         //读取签名文件
-        $fp = fopen($publicCrtPath, "rb");
-        fseek($fp, 0, SEEK_END);
-        $filelen = ftell($fp);
-        fseek($fp, 0, SEEK_SET);
-        $bcert = fread($fp, $filelen);
-        fclose($fp);
+        // $fp = fopen($publicCrtPath, "rb");
+        // fseek($fp, 0, SEEK_END);
+        // $filelen = ftell($fp);
+        // fseek($fp, 0, SEEK_SET);
+        // $bcert = fread($fp, $filelen);
+        // fclose($fp);
+        $bcert = ReadBytesFile::readFile($publicCrtPath);
 
         //获取签名
-        //$sign = Bytes::getBytes(base64_decode($signMsg));
-        $sign = $ReturnValue->base64dec($signMsg);
+        $sign = Bytes::getBytes(base64_decode($signMsg));
 
         //获取通知数据
-        //$notifyData = Bytes::getBytes(base64_decode($notifyData));
-        $notifyData = $ReturnValue->base64dec($notifyData);
+        $notifyData = Bytes::getBytes(base64_decode($notifyData));
 
         $rv = java_values($ReturnValue->verifySign($notifyData, count($notifyData), $bcert, $sign));
-        dd($rv);
-        return $rv == 0 ? true : "verify error";
+
+        return $rv;
+        //return $rv == 0 ? true : "verify error";
     }
 
 }

@@ -38,89 +38,14 @@
             }]
         },
         {
-            "title": "用户登入",
-            "description": "用户登入测试接口",
-            "url": "/login",
-            "method": "post",
+            "title": "文件删除",
+            "description": "提供文件的url链接，尝试删除文件",
+            "url": "/upload/remove",
+            "method": "delete",
             "inputs": [{
-                    "name": "email",
-                    "description": "邮箱"
-                },
-                {
-                    "name": "password",
-                    "description": "密码"
-                }
-            ]
-        },
-        {
-            "title": "用户注册",
-            "description": "用户注册测试接口",
-            "url": "/signup",
-            "method": "post",
-            "inputs": [{
-                    "name": "email",
-                    "description": "用户邮箱"
-                },
-                {
-                    "name": "name",
-                    "description": "用户姓名"
-                },
-                {
-                    "name": "password",
-                    "description": "用户密码"
-                }
-            ]
-        },
-        {
-            "title": "退出登入",
-            "description": "用户退出登入接口",
-            "url": "/signout",
-            "method": "get",
-            "inputs": []
-        },
-        {
-            "title": "menus",
-            "description": "get user menus",
-            "url": "/menus",
-            "method": "get",
-            "inputs": []
-        },
-        {
-            "title": "权限令牌校验",
-            "description": "用户权限令牌校验测试接口",
-            "url": "/check",
-            "method": "post",
-            "inputs": [{
-                    "name": "ng-params-one",
-                    "description": "客户端获取的secret"
-                },
-                {
-                    "name": "ng-params-two",
-                    "description": "客户端获取的token"
-                }
-            ]
-        },
-        {
-            "title": "获取用户信息",
-            "description": "用户登入成功后，通过此接口获取自身信息",
-            "url": "/info",
-            "method": "get",
-            "inputs": []
-        }, {
-            "title": "获取用户权限",
-            "description": "用户登入成功后，通过此接口获取自身权限信息",
-            "url": "/permission",
-            "method": "get",
-            "inputs": []
-        },
-        {
-            "title": "判断用户是否具有某个权限",
-            "description": "用户登入成功后，通过此接口判断是否具有某项权限",
-            "url": "/has/permission",
-            "method": "get",
-            "inputs": [{
-                "name": "key",
-                "description": "权限的关键词"
+                "type": "text",
+                "name": "path",
+                "description": "图片链接"
             }]
         },
         {

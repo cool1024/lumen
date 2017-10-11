@@ -1,5 +1,5 @@
 <?php
-	require_once __DIR__ . '\..\icbcB2C.model\B2cConfig.php';
+	require_once __DIR__ . '/../icbcB2C.model/B2cConfig.php';
 	/*
 	 * <p>icbcB2C������</p>
 	 * <br/>
