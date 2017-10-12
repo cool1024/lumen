@@ -25,8 +25,10 @@ interface AuthContract
     //加密密码
     public function secretPassword($password);
 
+    //判断用户是否具有某权限
     public function hasPermission($key);
 
+    //获取用户所有权限
     public function getPermissions();
 
 }

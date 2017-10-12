@@ -36,6 +36,14 @@ trait SearchTrait
         $result['total'] = $sql->count();
 
         if ($result['total'] > 0) {
+
+            if (isset($this->search_order)) {
+
+                foreach ($this->search_order as $key => $rule) {
+                    $sql = $sql->orderBy($key, $rule);
+                }
+            }
+
             $result['rows'] = $sql->skip($params['offset'])->take($params['limit'])->get();
         }
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Api\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,10 +8,12 @@ class Role extends Model
 {
     use SearchTrait;
 
-    protected $table='role';
+    protected $table = 'role';
 
-    protected $fillable = ['id','name','description','permissions'];
+    protected $fillable = ['id', 'name', 'description', 'permissions'];
 
-    private $search_params = [];    
+    private $search_params = [];
+
+    private $search_order = [];
 
 }
