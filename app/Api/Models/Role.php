@@ -12,8 +12,4 @@ class Role extends Model
 
     protected $fillable = ['id', 'name', 'description', 'permissions'];
 
-    private $search_params = [];
-
-    private $search_order = [];
-
 }
