@@ -51,7 +51,9 @@ function initDocs() {
 //获取JSON文件
 function readJosnFile(file, callback) {
     let requester = new XMLHttpRequest()
-    requester.open('get', file)
+    requester.open('get', file + '?fresh=' + Math.random())
+    requester.setRequestHeader('If-Modified-Since', '0')
+    requester.setRequestHeader("Cache-Control", "no-cache")
     requester.addEventListener('load', function(res) {
         try {
             json = JSON.parse(res.target.responseText)
@@ -130,11 +132,11 @@ function getFormDom(title, description, parentid, index, inputs, method, url) {
     divDom.innerHTML = `
                 <div class="panel-heading" style="background-color:white;" role="tab">
                     <h4 class="panel-title">
-                        <div role="button" data-toggle="collapse" data-parent="#${parentid}" href="#collapse-${parentid}-${index}" aria-expanded="true">
+                        <a role="button" data-toggle="collapse" data-parent="#${parentid}" href="#collapse-${parentid}-${index}" aria-expanded="true">
                             ${span}
                             ${url}
                             <span class="pull-right text-primary">${title}<span>
-                        </div>
+                        </a>
                     </h4>
                 </div>
                 <div id="collapse-${parentid}-${index}" class="panel-collapse collapse" role="tabpanel">
@@ -307,15 +309,8 @@ function syntaxHighlight(json) {
 
 function showError(text) {
     //$('#error-pad').html(text)
-    try {
-        var text = JSON.parse(text)
-        if (!!text) {
-            showSuccess(text)
-        }
-    } catch (e) {
-        document.getElementById('error-pad').contentWindow.document.body.innerHTML = text;
-        $('#myModal-2').modal('show')
-    }
+    document.getElementById('error-pad').contentWindow.document.body.innerHTML = text;
+    $('#myModal-2').modal('show')
 }
 
 function showSuccess(json) {
