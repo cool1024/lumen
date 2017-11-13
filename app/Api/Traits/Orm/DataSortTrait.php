@@ -4,7 +4,7 @@ namespace App\Api\Traits\Orm;
 trait DataSortTrait
 {
 
-    public function sort(array $ids, string $sort_key)
+    public function sort($ids, $sort_key)
     {
 
         $result = false;
@@ -29,7 +29,7 @@ trait DataSortTrait
         return $result;
     }
 
-    public function rsort(array $ids, string $sort_key)
+    public function rsort($ids, $sort_key)
     {
         $result = false;
 

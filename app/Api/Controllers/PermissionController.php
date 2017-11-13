@@ -66,8 +66,7 @@ class PermissionController extends Controller
             $id = $this->permission->insertGetId($params['datas']);
 
             return $this->api->insert_message($id);
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -87,8 +86,7 @@ class PermissionController extends Controller
             $result = $this->permission->destroy($param['datas']['permissionid']);
 
             return $this->api->delete_message($result);
-        }
-        else {
+        } else {
             return $param;
         }
     }
@@ -108,8 +106,7 @@ class PermissionController extends Controller
             $permission = $this->permission->find($params['datas']['id']);
             if (empty($permission)) {
                 return $this->api->error('permission not found');
-            }
-            else {
+            } else {
                 $permission->name = $params['datas']['name'];
                 $permission->key = $params['datas']['key'];
                 if (isset($params['datas']['description'])) $permission->description = $params['datas']['description'];
@@ -119,8 +116,7 @@ class PermissionController extends Controller
             $id = $this->permission->update($params['datas']);
 
             return $this->api->insert_message($id);
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -141,14 +137,12 @@ class PermissionController extends Controller
 
             if (empty($model)) {
                 return $this->api->error('model not found');
-            }
-            else {
+            } else {
                 $model->name = $params['datas']['name'];
                 $model->save();
                 return $this->api->success('model update success');
             }
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -166,8 +160,7 @@ class PermissionController extends Controller
         if ($params['result']) {
             $id = $this->model->insertGetId($params['datas']);
             return $this->api->insert_message($id);
-        }
-        else {
+        } else {
             return $params;
         }
     }
@@ -180,20 +173,19 @@ class PermissionController extends Controller
     function deletePermissionModel()
     {
         //必须参数[id:权限ID]
-        $param = $this->api->getParams(['modelid:integer']);
+        $params = $this->api->getParams(['modelid:integer']);
 
-        if ($param['result']) {
+        if ($params['result']) {
 
             //删除模块下的子权限
-            $this->permission->where('modelid', $param['datas']['modelid']);
+            $this->permission->where(['modelid' => $params['datas']['modelid']]);
 
             //删除权限模块
-            $result = $this->model->destroy($param['datas']['modelid']);
+            $result = $this->model->destroy($params['datas']['modelid']);
 
             return $this->api->delete_message($result);
-        }
-        else {
-            return $param;
+        } else {
+            return $params;
         }
     }
 
