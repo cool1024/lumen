@@ -178,7 +178,7 @@ class PermissionController extends Controller
         if ($params['result']) {
 
             //删除模块下的子权限
-            $this->permission->where(['modelid' => $params['datas']['modelid']]);
+            $this->permission->where(['modelid' => $params['datas']['modelid']])->delete();
 
             //删除权限模块
             $result = $this->model->destroy($params['datas']['modelid']);
